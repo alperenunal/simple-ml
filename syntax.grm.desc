@@ -1,0 +1,3496 @@
+
+state 0:
+
+	program : .  (reduce by rule 0)
+	program : . declarations 
+
+	EOF	reduce by rule 0
+	VAL	shift 6
+	FUNC	shift 5
+	DATATYPE	shift 4
+	TYPE	shift 3
+
+	program	goto 143
+	declaration	goto 2
+	declarations	goto 1
+
+	.	error
+
+
+state 1:
+
+	program : declarations .  (reduce by rule 1)
+
+	EOF	reduce by rule 1
+
+
+	.	error
+
+
+state 2:
+
+	declarations : declaration .  (reduce by rule 2)
+	declarations : declaration . declarations 
+
+	EOF	reduce by rule 2
+	VAL	shift 6
+	FUNC	shift 5
+	IN	reduce by rule 2
+	DATATYPE	shift 4
+	TYPE	shift 3
+
+	declaration	goto 2
+	declarations	goto 7
+
+	.	error
+
+
+state 3:
+
+	declaration : TYPE . ID EQ type_rule 
+
+	ID	shift 8
+
+
+	.	error
+
+
+state 4:
+
+	declaration : DATATYPE . ID EQ datatype_rule 
+
+	ID	shift 9
+
+
+	.	error
+
+
+state 5:
+
+	declaration : FUNC . ID params type_def EQ expr 
+
+	ID	shift 10
+
+
+	.	error
+
+
+state 6:
+
+	declaration : VAL . ID type_def EQ expr 
+
+	ID	shift 11
+
+
+	.	error
+
+
+state 7:
+
+	declarations : declaration declarations .  (reduce by rule 3)
+
+	EOF	reduce by rule 3
+	IN	reduce by rule 3
+
+
+	.	error
+
+
+state 8:
+
+	declaration : TYPE ID . EQ type_rule 
+
+	EQ	shift 12
+
+
+	.	error
+
+
+state 9:
+
+	declaration : DATATYPE ID . EQ datatype_rule 
+
+	EQ	shift 13
+
+
+	.	error
+
+
+state 10:
+
+	declaration : FUNC ID . params type_def EQ expr 
+
+	LPAREN	shift 15
+	COLON	reduce by rule 14
+	EQ	reduce by rule 14
+
+	params	goto 14
+
+	.	error
+
+
+state 11:
+
+	declaration : VAL ID . type_def EQ expr 
+
+	COLON	shift 17
+	EQ	reduce by rule 12
+
+	type_def	goto 16
+
+	.	error
+
+
+state 12:
+
+	declaration : TYPE ID EQ . type_rule 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	type_rule	goto 22
+	fun_type	goto 21
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 13:
+
+	declaration : DATATYPE ID EQ . datatype_rule 
+
+	ID	shift 33
+
+	datatype_rule	goto 32
+	datatype_branch	goto 31
+
+	.	error
+
+
+state 14:
+
+	declaration : FUNC ID params . type_def EQ expr 
+
+	COLON	shift 17
+	EQ	reduce by rule 12
+
+	type_def	goto 34
+
+	.	error
+
+
+state 15:
+
+	params : LPAREN . ID COLON type_rule RPAREN params 
+
+	ID	shift 35
+
+
+	.	error
+
+
+state 16:
+
+	declaration : VAL ID type_def . EQ expr 
+
+	EQ	shift 36
+
+
+	.	error
+
+
+state 17:
+
+	type_def : COLON . type_rule 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	type_rule	goto 37
+	fun_type	goto 21
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 18:
+
+	postype : atype .  (reduce by rule 21)
+	postype : atype . LIST 
+
+	EOF	reduce by rule 21
+	VAL	reduce by rule 21
+	FUNC	reduce by rule 21
+	IN	reduce by rule 21
+	DATATYPE	reduce by rule 21
+	TYPE	reduce by rule 21
+	LIST	shift 38
+	RPAREN	reduce by rule 21
+	RBRACE	reduce by rule 21
+	PIPE	reduce by rule 21
+	COMMA	reduce by rule 21
+	RARROW	reduce by rule 21
+	EQ	reduce by rule 21
+	STAR	reduce by rule 21
+
+
+	.	error
+
+
+state 19:
+
+	tuple_type : postype .  (reduce by rule 19)
+	tuple_type : postype . STAR tuple_type 
+
+	EOF	reduce by rule 19
+	VAL	reduce by rule 19
+	FUNC	reduce by rule 19
+	IN	reduce by rule 19
+	DATATYPE	reduce by rule 19
+	TYPE	reduce by rule 19
+	RPAREN	reduce by rule 19
+	RBRACE	reduce by rule 19
+	PIPE	reduce by rule 19
+	COMMA	reduce by rule 19
+	RARROW	reduce by rule 19
+	EQ	reduce by rule 19
+	STAR	shift 39
+
+
+	.	error
+
+
+state 20:
+
+	fun_type : tuple_type .  (reduce by rule 17)
+	fun_type : tuple_type . RARROW fun_type 
+
+	EOF	reduce by rule 17
+	VAL	reduce by rule 17
+	FUNC	reduce by rule 17
+	IN	reduce by rule 17
+	DATATYPE	reduce by rule 17
+	TYPE	reduce by rule 17
+	RPAREN	reduce by rule 17
+	RBRACE	reduce by rule 17
+	PIPE	reduce by rule 17
+	COMMA	reduce by rule 17
+	RARROW	shift 40
+	EQ	reduce by rule 17
+
+
+	.	error
+
+
+state 21:
+
+	type_rule : fun_type .  (reduce by rule 16)
+
+	EOF	reduce by rule 16
+	VAL	reduce by rule 16
+	FUNC	reduce by rule 16
+	IN	reduce by rule 16
+	DATATYPE	reduce by rule 16
+	TYPE	reduce by rule 16
+	RPAREN	reduce by rule 16
+	RBRACE	reduce by rule 16
+	PIPE	reduce by rule 16
+	COMMA	reduce by rule 16
+	EQ	reduce by rule 16
+
+
+	.	error
+
+
+state 22:
+
+	declaration : TYPE ID EQ type_rule .  (reduce by rule 6)
+
+	EOF	reduce by rule 6
+	VAL	reduce by rule 6
+	FUNC	reduce by rule 6
+	IN	reduce by rule 6
+	DATATYPE	reduce by rule 6
+	TYPE	reduce by rule 6
+
+
+	.	error
+
+
+state 23:
+
+	atype : ID .  (reduce by rule 32)
+
+	EOF	reduce by rule 32
+	VAL	reduce by rule 32
+	FUNC	reduce by rule 32
+	IN	reduce by rule 32
+	DATATYPE	reduce by rule 32
+	TYPE	reduce by rule 32
+	LIST	reduce by rule 32
+	RPAREN	reduce by rule 32
+	RBRACE	reduce by rule 32
+	PIPE	reduce by rule 32
+	COMMA	reduce by rule 32
+	RARROW	reduce by rule 32
+	EQ	reduce by rule 32
+	STAR	reduce by rule 32
+
+
+	.	error
+
+
+state 24:
+
+	atype : LBRACE . record_fields RBRACE 
+
+	ID	shift 42
+
+	record_fields	goto 41
+
+	.	error
+
+
+state 25:
+
+	atype : LPAREN . type_rule RPAREN 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	type_rule	goto 43
+	fun_type	goto 21
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 26:
+
+	atype : STRING .  (reduce by rule 29)
+
+	EOF	reduce by rule 29
+	VAL	reduce by rule 29
+	FUNC	reduce by rule 29
+	IN	reduce by rule 29
+	DATATYPE	reduce by rule 29
+	TYPE	reduce by rule 29
+	LIST	reduce by rule 29
+	RPAREN	reduce by rule 29
+	RBRACE	reduce by rule 29
+	PIPE	reduce by rule 29
+	COMMA	reduce by rule 29
+	RARROW	reduce by rule 29
+	EQ	reduce by rule 29
+	STAR	reduce by rule 29
+
+
+	.	error
+
+
+state 27:
+
+	atype : BOOL .  (reduce by rule 28)
+
+	EOF	reduce by rule 28
+	VAL	reduce by rule 28
+	FUNC	reduce by rule 28
+	IN	reduce by rule 28
+	DATATYPE	reduce by rule 28
+	TYPE	reduce by rule 28
+	LIST	reduce by rule 28
+	RPAREN	reduce by rule 28
+	RBRACE	reduce by rule 28
+	PIPE	reduce by rule 28
+	COMMA	reduce by rule 28
+	RARROW	reduce by rule 28
+	EQ	reduce by rule 28
+	STAR	reduce by rule 28
+
+
+	.	error
+
+
+state 28:
+
+	atype : REAL .  (reduce by rule 27)
+
+	EOF	reduce by rule 27
+	VAL	reduce by rule 27
+	FUNC	reduce by rule 27
+	IN	reduce by rule 27
+	DATATYPE	reduce by rule 27
+	TYPE	reduce by rule 27
+	LIST	reduce by rule 27
+	RPAREN	reduce by rule 27
+	RBRACE	reduce by rule 27
+	PIPE	reduce by rule 27
+	COMMA	reduce by rule 27
+	RARROW	reduce by rule 27
+	EQ	reduce by rule 27
+	STAR	reduce by rule 27
+
+
+	.	error
+
+
+state 29:
+
+	atype : INT .  (reduce by rule 26)
+
+	EOF	reduce by rule 26
+	VAL	reduce by rule 26
+	FUNC	reduce by rule 26
+	IN	reduce by rule 26
+	DATATYPE	reduce by rule 26
+	TYPE	reduce by rule 26
+	LIST	reduce by rule 26
+	RPAREN	reduce by rule 26
+	RBRACE	reduce by rule 26
+	PIPE	reduce by rule 26
+	COMMA	reduce by rule 26
+	RARROW	reduce by rule 26
+	EQ	reduce by rule 26
+	STAR	reduce by rule 26
+
+
+	.	error
+
+
+state 30:
+
+	atype : UNIT .  (reduce by rule 25)
+
+	EOF	reduce by rule 25
+	VAL	reduce by rule 25
+	FUNC	reduce by rule 25
+	IN	reduce by rule 25
+	DATATYPE	reduce by rule 25
+	TYPE	reduce by rule 25
+	LIST	reduce by rule 25
+	RPAREN	reduce by rule 25
+	RBRACE	reduce by rule 25
+	PIPE	reduce by rule 25
+	COMMA	reduce by rule 25
+	RARROW	reduce by rule 25
+	EQ	reduce by rule 25
+	STAR	reduce by rule 25
+
+
+	.	error
+
+
+state 31:
+
+	datatype_rule : datatype_branch .  (reduce by rule 8)
+	datatype_rule : datatype_branch . PIPE datatype_rule 
+
+	EOF	reduce by rule 8
+	VAL	reduce by rule 8
+	FUNC	reduce by rule 8
+	IN	reduce by rule 8
+	DATATYPE	reduce by rule 8
+	TYPE	reduce by rule 8
+	PIPE	shift 44
+
+
+	.	error
+
+
+state 32:
+
+	declaration : DATATYPE ID EQ datatype_rule .  (reduce by rule 7)
+
+	EOF	reduce by rule 7
+	VAL	reduce by rule 7
+	FUNC	reduce by rule 7
+	IN	reduce by rule 7
+	DATATYPE	reduce by rule 7
+	TYPE	reduce by rule 7
+
+
+	.	error
+
+
+state 33:
+
+	datatype_branch : ID .  (reduce by rule 10)
+	datatype_branch : ID . OF type_rule 
+
+	EOF	reduce by rule 10
+	VAL	reduce by rule 10
+	FUNC	reduce by rule 10
+	IN	reduce by rule 10
+	DATATYPE	reduce by rule 10
+	TYPE	reduce by rule 10
+	OF	shift 45
+	PIPE	reduce by rule 10
+
+
+	.	error
+
+
+state 34:
+
+	declaration : FUNC ID params type_def . EQ expr 
+
+	EQ	shift 46
+
+
+	.	error
+
+
+state 35:
+
+	params : LPAREN ID . COLON type_rule RPAREN params 
+
+	COLON	shift 47
+
+
+	.	error
+
+
+state 36:
+
+	declaration : VAL ID type_def EQ . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 49
+	atom	goto 48
+
+	.	error
+
+
+state 37:
+
+	type_def : COLON type_rule .  (reduce by rule 13)
+
+	EQ	reduce by rule 13
+
+
+	.	error
+
+
+state 38:
+
+	postype : atype LIST .  (reduce by rule 22)
+
+	EOF	reduce by rule 22
+	VAL	reduce by rule 22
+	FUNC	reduce by rule 22
+	IN	reduce by rule 22
+	DATATYPE	reduce by rule 22
+	TYPE	reduce by rule 22
+	RPAREN	reduce by rule 22
+	RBRACE	reduce by rule 22
+	PIPE	reduce by rule 22
+	COMMA	reduce by rule 22
+	RARROW	reduce by rule 22
+	EQ	reduce by rule 22
+	STAR	reduce by rule 22
+
+
+	.	error
+
+
+state 39:
+
+	tuple_type : postype STAR . tuple_type 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	tuple_type	goto 64
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 40:
+
+	fun_type : tuple_type RARROW . fun_type 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	fun_type	goto 65
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 41:
+
+	atype : LBRACE record_fields . RBRACE 
+
+	RBRACE	shift 66
+
+
+	.	error
+
+
+state 42:
+
+	record_fields : ID . COLON type_rule COMMA record_fields 
+	record_fields : ID . COLON type_rule 
+
+	COLON	shift 67
+
+
+	.	error
+
+
+state 43:
+
+	atype : LPAREN type_rule . RPAREN 
+
+	RPAREN	shift 68
+
+
+	.	error
+
+
+state 44:
+
+	datatype_rule : datatype_branch PIPE . datatype_rule 
+
+	ID	shift 33
+
+	datatype_rule	goto 69
+	datatype_branch	goto 31
+
+	.	error
+
+
+state 45:
+
+	datatype_branch : ID OF . type_rule 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	type_rule	goto 70
+	fun_type	goto 21
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 46:
+
+	declaration : FUNC ID params type_def EQ . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 71
+	atom	goto 48
+
+	.	error
+
+
+state 47:
+
+	params : LPAREN ID COLON . type_rule RPAREN params 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	type_rule	goto 72
+	fun_type	goto 21
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 48:
+
+	expr : atom .  (reduce by rule 33)
+
+	EOF	reduce by rule 33
+	VAL	reduce by rule 33
+	FUNC	reduce by rule 33
+	IN	reduce by rule 33
+	END	reduce by rule 33
+	DATATYPE	reduce by rule 33
+	TYPE	reduce by rule 33
+	THEN	reduce by rule 33
+	ELSE	reduce by rule 33
+	RPAREN	reduce by rule 33
+	RBRACKET	reduce by rule 33
+	RBRACE	reduce by rule 33
+	COMMA	reduce by rule 33
+	CONS	reduce by rule 33
+	EQ	reduce by rule 33
+	NEQ	reduce by rule 33
+	LESS_EQ	reduce by rule 33
+	LESS_OP	reduce by rule 33
+	GREATER_EQ	reduce by rule 33
+	GREATER_OP	reduce by rule 33
+	PLUS	reduce by rule 33
+	MINUS	reduce by rule 33
+	STAR	reduce by rule 33
+	SLASH	reduce by rule 33
+	DOT	reduce by rule 33
+	AT	reduce by rule 33
+
+
+	.	error
+
+
+state 49:
+
+	declaration : VAL ID type_def EQ expr .  (reduce by rule 4)
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 4
+	VAL	reduce by rule 4
+	FUNC	reduce by rule 4
+	IN	reduce by rule 4
+	DATATYPE	reduce by rule 4
+	TYPE	reduce by rule 4
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 50:
+
+	atom : STRING_VAL .  (reduce by rule 64)
+
+	EOF	reduce by rule 64
+	VAL	reduce by rule 64
+	FUNC	reduce by rule 64
+	IN	reduce by rule 64
+	END	reduce by rule 64
+	DATATYPE	reduce by rule 64
+	TYPE	reduce by rule 64
+	THEN	reduce by rule 64
+	ELSE	reduce by rule 64
+	RPAREN	reduce by rule 64
+	RBRACKET	reduce by rule 64
+	RBRACE	reduce by rule 64
+	COMMA	reduce by rule 64
+	CONS	reduce by rule 64
+	EQ	reduce by rule 64
+	NEQ	reduce by rule 64
+	LESS_EQ	reduce by rule 64
+	LESS_OP	reduce by rule 64
+	GREATER_EQ	reduce by rule 64
+	GREATER_OP	reduce by rule 64
+	PLUS	reduce by rule 64
+	MINUS	reduce by rule 64
+	STAR	reduce by rule 64
+	SLASH	reduce by rule 64
+	DOT	reduce by rule 64
+	AT	reduce by rule 64
+
+
+	.	error
+
+
+state 51:
+
+	atom : REAL_VAL .  (reduce by rule 61)
+
+	EOF	reduce by rule 61
+	VAL	reduce by rule 61
+	FUNC	reduce by rule 61
+	IN	reduce by rule 61
+	END	reduce by rule 61
+	DATATYPE	reduce by rule 61
+	TYPE	reduce by rule 61
+	THEN	reduce by rule 61
+	ELSE	reduce by rule 61
+	RPAREN	reduce by rule 61
+	RBRACKET	reduce by rule 61
+	RBRACE	reduce by rule 61
+	COMMA	reduce by rule 61
+	CONS	reduce by rule 61
+	EQ	reduce by rule 61
+	NEQ	reduce by rule 61
+	LESS_EQ	reduce by rule 61
+	LESS_OP	reduce by rule 61
+	GREATER_EQ	reduce by rule 61
+	GREATER_OP	reduce by rule 61
+	PLUS	reduce by rule 61
+	MINUS	reduce by rule 61
+	STAR	reduce by rule 61
+	SLASH	reduce by rule 61
+	DOT	reduce by rule 61
+	AT	reduce by rule 61
+
+
+	.	error
+
+
+state 52:
+
+	atom : INT_VAL .  (reduce by rule 60)
+
+	EOF	reduce by rule 60
+	VAL	reduce by rule 60
+	FUNC	reduce by rule 60
+	IN	reduce by rule 60
+	END	reduce by rule 60
+	DATATYPE	reduce by rule 60
+	TYPE	reduce by rule 60
+	THEN	reduce by rule 60
+	ELSE	reduce by rule 60
+	RPAREN	reduce by rule 60
+	RBRACKET	reduce by rule 60
+	RBRACE	reduce by rule 60
+	COMMA	reduce by rule 60
+	CONS	reduce by rule 60
+	EQ	reduce by rule 60
+	NEQ	reduce by rule 60
+	LESS_EQ	reduce by rule 60
+	LESS_OP	reduce by rule 60
+	GREATER_EQ	reduce by rule 60
+	GREATER_OP	reduce by rule 60
+	PLUS	reduce by rule 60
+	MINUS	reduce by rule 60
+	STAR	reduce by rule 60
+	SLASH	reduce by rule 60
+	DOT	reduce by rule 60
+	AT	reduce by rule 60
+
+
+	.	error
+
+
+state 53:
+
+	atom : ID .  (reduce by rule 59)
+
+	EOF	reduce by rule 59
+	VAL	reduce by rule 59
+	FUNC	reduce by rule 59
+	IN	reduce by rule 59
+	END	reduce by rule 59
+	DATATYPE	reduce by rule 59
+	TYPE	reduce by rule 59
+	THEN	reduce by rule 59
+	ELSE	reduce by rule 59
+	RPAREN	reduce by rule 59
+	RBRACKET	reduce by rule 59
+	RBRACE	reduce by rule 59
+	COMMA	reduce by rule 59
+	CONS	reduce by rule 59
+	EQ	reduce by rule 59
+	NEQ	reduce by rule 59
+	LESS_EQ	reduce by rule 59
+	LESS_OP	reduce by rule 59
+	GREATER_EQ	reduce by rule 59
+	GREATER_OP	reduce by rule 59
+	PLUS	reduce by rule 59
+	MINUS	reduce by rule 59
+	STAR	reduce by rule 59
+	SLASH	reduce by rule 59
+	DOT	reduce by rule 59
+	AT	reduce by rule 59
+
+
+	.	error
+
+
+state 54:
+
+	expr : MINUS . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 86
+	atom	goto 48
+
+	.	error
+
+
+state 55:
+
+	expr : PLUS . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 87
+	atom	goto 48
+
+	.	error
+
+
+state 56:
+
+	expr : NOT . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 88
+	atom	goto 48
+
+	.	error
+
+
+state 57:
+
+	atom : LBRACE . record_expr RBRACE 
+
+	ID	shift 90
+
+	record_expr	goto 89
+
+	.	error
+
+
+state 58:
+
+	atom : LBRACKET . list_expr RBRACKET 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 92
+	list_expr	goto 91
+	atom	goto 48
+
+	.	error
+
+
+state 59:
+
+	atom : LPAREN . RPAREN 
+	atom : LPAREN . tuple_expr RPAREN 
+	atom : LPAREN . expr RPAREN 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	RPAREN	shift 95
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 94
+	tuple_expr	goto 93
+	atom	goto 48
+
+	.	error
+
+
+state 60:
+
+	expr : IF . expr THEN expr ELSE expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 96
+	atom	goto 48
+
+	.	error
+
+
+state 61:
+
+	atom : FALSE .  (reduce by rule 63)
+
+	EOF	reduce by rule 63
+	VAL	reduce by rule 63
+	FUNC	reduce by rule 63
+	IN	reduce by rule 63
+	END	reduce by rule 63
+	DATATYPE	reduce by rule 63
+	TYPE	reduce by rule 63
+	THEN	reduce by rule 63
+	ELSE	reduce by rule 63
+	RPAREN	reduce by rule 63
+	RBRACKET	reduce by rule 63
+	RBRACE	reduce by rule 63
+	COMMA	reduce by rule 63
+	CONS	reduce by rule 63
+	EQ	reduce by rule 63
+	NEQ	reduce by rule 63
+	LESS_EQ	reduce by rule 63
+	LESS_OP	reduce by rule 63
+	GREATER_EQ	reduce by rule 63
+	GREATER_OP	reduce by rule 63
+	PLUS	reduce by rule 63
+	MINUS	reduce by rule 63
+	STAR	reduce by rule 63
+	SLASH	reduce by rule 63
+	DOT	reduce by rule 63
+	AT	reduce by rule 63
+
+
+	.	error
+
+
+state 62:
+
+	atom : TRUE .  (reduce by rule 62)
+
+	EOF	reduce by rule 62
+	VAL	reduce by rule 62
+	FUNC	reduce by rule 62
+	IN	reduce by rule 62
+	END	reduce by rule 62
+	DATATYPE	reduce by rule 62
+	TYPE	reduce by rule 62
+	THEN	reduce by rule 62
+	ELSE	reduce by rule 62
+	RPAREN	reduce by rule 62
+	RBRACKET	reduce by rule 62
+	RBRACE	reduce by rule 62
+	COMMA	reduce by rule 62
+	CONS	reduce by rule 62
+	EQ	reduce by rule 62
+	NEQ	reduce by rule 62
+	LESS_EQ	reduce by rule 62
+	LESS_OP	reduce by rule 62
+	GREATER_EQ	reduce by rule 62
+	GREATER_OP	reduce by rule 62
+	PLUS	reduce by rule 62
+	MINUS	reduce by rule 62
+	STAR	reduce by rule 62
+	SLASH	reduce by rule 62
+	DOT	reduce by rule 62
+	AT	reduce by rule 62
+
+
+	.	error
+
+
+state 63:
+
+	expr : LET . declarations IN expr END 
+
+	VAL	shift 6
+	FUNC	shift 5
+	DATATYPE	shift 4
+	TYPE	shift 3
+
+	declaration	goto 2
+	declarations	goto 97
+
+	.	error
+
+
+state 64:
+
+	tuple_type : postype STAR tuple_type .  (reduce by rule 20)
+
+	EOF	reduce by rule 20
+	VAL	reduce by rule 20
+	FUNC	reduce by rule 20
+	IN	reduce by rule 20
+	DATATYPE	reduce by rule 20
+	TYPE	reduce by rule 20
+	RPAREN	reduce by rule 20
+	RBRACE	reduce by rule 20
+	PIPE	reduce by rule 20
+	COMMA	reduce by rule 20
+	RARROW	reduce by rule 20
+	EQ	reduce by rule 20
+
+
+	.	error
+
+
+state 65:
+
+	fun_type : tuple_type RARROW fun_type .  (reduce by rule 18)
+
+	EOF	reduce by rule 18
+	VAL	reduce by rule 18
+	FUNC	reduce by rule 18
+	IN	reduce by rule 18
+	DATATYPE	reduce by rule 18
+	TYPE	reduce by rule 18
+	RPAREN	reduce by rule 18
+	RBRACE	reduce by rule 18
+	PIPE	reduce by rule 18
+	COMMA	reduce by rule 18
+	EQ	reduce by rule 18
+
+
+	.	error
+
+
+state 66:
+
+	atype : LBRACE record_fields RBRACE .  (reduce by rule 30)
+
+	EOF	reduce by rule 30
+	VAL	reduce by rule 30
+	FUNC	reduce by rule 30
+	IN	reduce by rule 30
+	DATATYPE	reduce by rule 30
+	TYPE	reduce by rule 30
+	LIST	reduce by rule 30
+	RPAREN	reduce by rule 30
+	RBRACE	reduce by rule 30
+	PIPE	reduce by rule 30
+	COMMA	reduce by rule 30
+	RARROW	reduce by rule 30
+	EQ	reduce by rule 30
+	STAR	reduce by rule 30
+
+
+	.	error
+
+
+state 67:
+
+	record_fields : ID COLON . type_rule COMMA record_fields 
+	record_fields : ID COLON . type_rule 
+
+	UNIT	shift 30
+	INT	shift 29
+	REAL	shift 28
+	BOOL	shift 27
+	STRING	shift 26
+	LPAREN	shift 25
+	LBRACE	shift 24
+	ID	shift 23
+
+	type_rule	goto 98
+	fun_type	goto 21
+	tuple_type	goto 20
+	postype	goto 19
+	atype	goto 18
+
+	.	error
+
+
+state 68:
+
+	atype : LPAREN type_rule RPAREN .  (reduce by rule 31)
+
+	EOF	reduce by rule 31
+	VAL	reduce by rule 31
+	FUNC	reduce by rule 31
+	IN	reduce by rule 31
+	DATATYPE	reduce by rule 31
+	TYPE	reduce by rule 31
+	LIST	reduce by rule 31
+	RPAREN	reduce by rule 31
+	RBRACE	reduce by rule 31
+	PIPE	reduce by rule 31
+	COMMA	reduce by rule 31
+	RARROW	reduce by rule 31
+	EQ	reduce by rule 31
+	STAR	reduce by rule 31
+
+
+	.	error
+
+
+state 69:
+
+	datatype_rule : datatype_branch PIPE datatype_rule .  (reduce by rule 9)
+
+	EOF	reduce by rule 9
+	VAL	reduce by rule 9
+	FUNC	reduce by rule 9
+	IN	reduce by rule 9
+	DATATYPE	reduce by rule 9
+	TYPE	reduce by rule 9
+
+
+	.	error
+
+
+state 70:
+
+	datatype_branch : ID OF type_rule .  (reduce by rule 11)
+
+	EOF	reduce by rule 11
+	VAL	reduce by rule 11
+	FUNC	reduce by rule 11
+	IN	reduce by rule 11
+	DATATYPE	reduce by rule 11
+	TYPE	reduce by rule 11
+	PIPE	reduce by rule 11
+
+
+	.	error
+
+
+state 71:
+
+	declaration : FUNC ID params type_def EQ expr .  (reduce by rule 5)
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 5
+	VAL	reduce by rule 5
+	FUNC	reduce by rule 5
+	IN	reduce by rule 5
+	DATATYPE	reduce by rule 5
+	TYPE	reduce by rule 5
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 72:
+
+	params : LPAREN ID COLON type_rule . RPAREN params 
+
+	RPAREN	shift 99
+
+
+	.	error
+
+
+state 73:
+
+	expr : expr AT . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 100
+	atom	goto 48
+
+	.	error
+
+
+state 74:
+
+	expr : expr DOT . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 101
+	atom	goto 48
+
+	.	error
+
+
+state 75:
+
+	expr : expr SLASH . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 102
+	atom	goto 48
+
+	.	error
+
+
+state 76:
+
+	expr : expr STAR . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 103
+	atom	goto 48
+
+	.	error
+
+
+state 77:
+
+	expr : expr MINUS . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 104
+	atom	goto 48
+
+	.	error
+
+
+state 78:
+
+	expr : expr PLUS . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 105
+	atom	goto 48
+
+	.	error
+
+
+state 79:
+
+	expr : expr GREATER_OP . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 106
+	atom	goto 48
+
+	.	error
+
+
+state 80:
+
+	expr : expr GREATER_EQ . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 107
+	atom	goto 48
+
+	.	error
+
+
+state 81:
+
+	expr : expr LESS_OP . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 108
+	atom	goto 48
+
+	.	error
+
+
+state 82:
+
+	expr : expr LESS_EQ . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 109
+	atom	goto 48
+
+	.	error
+
+
+state 83:
+
+	expr : expr NEQ . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 110
+	atom	goto 48
+
+	.	error
+
+
+state 84:
+
+	expr : expr EQ . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 111
+	atom	goto 48
+
+	.	error
+
+
+state 85:
+
+	expr : expr CONS . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 112
+	atom	goto 48
+
+	.	error
+
+
+state 86:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	expr : MINUS expr .  (reduce by rule 50)
+
+	EOF	reduce by rule 50
+	VAL	reduce by rule 50
+	FUNC	reduce by rule 50
+	IN	reduce by rule 50
+	END	reduce by rule 50
+	DATATYPE	reduce by rule 50
+	TYPE	reduce by rule 50
+	THEN	reduce by rule 50
+	ELSE	reduce by rule 50
+	RPAREN	reduce by rule 50
+	RBRACKET	reduce by rule 50
+	RBRACE	reduce by rule 50
+	COMMA	reduce by rule 50
+	CONS	reduce by rule 50
+	EQ	reduce by rule 50
+	NEQ	reduce by rule 50
+	LESS_EQ	reduce by rule 50
+	LESS_OP	reduce by rule 50
+	GREATER_EQ	reduce by rule 50
+	GREATER_OP	reduce by rule 50
+	PLUS	reduce by rule 50
+	MINUS	reduce by rule 50
+	STAR	reduce by rule 50
+	SLASH	reduce by rule 50
+	DOT	shift 74
+	AT	reduce by rule 50
+
+
+	.	error
+
+
+state 87:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	expr : PLUS expr .  (reduce by rule 49)
+
+	EOF	reduce by rule 49
+	VAL	reduce by rule 49
+	FUNC	reduce by rule 49
+	IN	reduce by rule 49
+	END	reduce by rule 49
+	DATATYPE	reduce by rule 49
+	TYPE	reduce by rule 49
+	THEN	reduce by rule 49
+	ELSE	reduce by rule 49
+	RPAREN	reduce by rule 49
+	RBRACKET	reduce by rule 49
+	RBRACE	reduce by rule 49
+	COMMA	reduce by rule 49
+	CONS	reduce by rule 49
+	EQ	reduce by rule 49
+	NEQ	reduce by rule 49
+	LESS_EQ	reduce by rule 49
+	LESS_OP	reduce by rule 49
+	GREATER_EQ	reduce by rule 49
+	GREATER_OP	reduce by rule 49
+	PLUS	reduce by rule 49
+	MINUS	reduce by rule 49
+	STAR	reduce by rule 49
+	SLASH	reduce by rule 49
+	DOT	shift 74
+	AT	reduce by rule 49
+
+
+	.	error
+
+
+state 88:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	expr : NOT expr .  (reduce by rule 51)
+
+	EOF	reduce by rule 51
+	VAL	reduce by rule 51
+	FUNC	reduce by rule 51
+	IN	reduce by rule 51
+	END	reduce by rule 51
+	DATATYPE	reduce by rule 51
+	TYPE	reduce by rule 51
+	THEN	reduce by rule 51
+	ELSE	reduce by rule 51
+	RPAREN	reduce by rule 51
+	RBRACKET	reduce by rule 51
+	RBRACE	reduce by rule 51
+	COMMA	reduce by rule 51
+	CONS	reduce by rule 51
+	EQ	reduce by rule 51
+	NEQ	reduce by rule 51
+	LESS_EQ	reduce by rule 51
+	LESS_OP	reduce by rule 51
+	GREATER_EQ	reduce by rule 51
+	GREATER_OP	reduce by rule 51
+	PLUS	reduce by rule 51
+	MINUS	reduce by rule 51
+	STAR	reduce by rule 51
+	SLASH	reduce by rule 51
+	DOT	shift 74
+	AT	reduce by rule 51
+
+
+	.	error
+
+
+state 89:
+
+	atom : LBRACE record_expr . RBRACE 
+
+	RBRACE	shift 113
+
+
+	.	error
+
+
+state 90:
+
+	record_expr : ID . EQ expr COMMA assign_expr 
+
+	EQ	shift 114
+
+
+	.	error
+
+
+state 91:
+
+	atom : LBRACKET list_expr . RBRACKET 
+
+	RBRACKET	shift 115
+
+
+	.	error
+
+
+state 92:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	list_expr : expr . COMMA expr_list 
+
+	COMMA	shift 116
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 93:
+
+	atom : LPAREN tuple_expr . RPAREN 
+
+	RPAREN	shift 117
+
+
+	.	error
+
+
+state 94:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	tuple_expr : expr . COMMA expr_list 
+	atom : LPAREN expr . RPAREN 
+
+	RPAREN	shift 119
+	COMMA	shift 118
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 95:
+
+	atom : LPAREN RPAREN .  (reduce by rule 65)
+
+	EOF	reduce by rule 65
+	VAL	reduce by rule 65
+	FUNC	reduce by rule 65
+	IN	reduce by rule 65
+	END	reduce by rule 65
+	DATATYPE	reduce by rule 65
+	TYPE	reduce by rule 65
+	THEN	reduce by rule 65
+	ELSE	reduce by rule 65
+	RPAREN	reduce by rule 65
+	RBRACKET	reduce by rule 65
+	RBRACE	reduce by rule 65
+	COMMA	reduce by rule 65
+	CONS	reduce by rule 65
+	EQ	reduce by rule 65
+	NEQ	reduce by rule 65
+	LESS_EQ	reduce by rule 65
+	LESS_OP	reduce by rule 65
+	GREATER_EQ	reduce by rule 65
+	GREATER_OP	reduce by rule 65
+	PLUS	reduce by rule 65
+	MINUS	reduce by rule 65
+	STAR	reduce by rule 65
+	SLASH	reduce by rule 65
+	DOT	reduce by rule 65
+	AT	reduce by rule 65
+
+
+	.	error
+
+
+state 96:
+
+	expr : IF expr . THEN expr ELSE expr 
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	THEN	shift 120
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 97:
+
+	expr : LET declarations . IN expr END 
+
+	IN	shift 121
+
+
+	.	error
+
+
+state 98:
+
+	record_fields : ID COLON type_rule . COMMA record_fields 
+	record_fields : ID COLON type_rule .  (reduce by rule 24)
+
+	RBRACE	reduce by rule 24
+	COMMA	shift 122
+
+
+	.	error
+
+
+state 99:
+
+	params : LPAREN ID COLON type_rule RPAREN . params 
+
+	LPAREN	shift 15
+	COLON	reduce by rule 14
+	EQ	reduce by rule 14
+
+	params	goto 123
+
+	.	error
+
+
+state 100:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr AT expr .  (reduce by rule 43)
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 43
+	VAL	reduce by rule 43
+	FUNC	reduce by rule 43
+	IN	reduce by rule 43
+	END	reduce by rule 43
+	DATATYPE	reduce by rule 43
+	TYPE	reduce by rule 43
+	THEN	reduce by rule 43
+	ELSE	reduce by rule 43
+	RPAREN	reduce by rule 43
+	RBRACKET	reduce by rule 43
+	RBRACE	reduce by rule 43
+	COMMA	reduce by rule 43
+	CONS	shift 85
+	EQ	reduce by rule 43
+	NEQ	reduce by rule 43
+	LESS_EQ	reduce by rule 43
+	LESS_OP	reduce by rule 43
+	GREATER_EQ	reduce by rule 43
+	GREATER_OP	reduce by rule 43
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 101:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	expr : expr DOT expr .  (reduce by rule 48)
+
+	EOF	reduce by rule 48
+	VAL	reduce by rule 48
+	FUNC	reduce by rule 48
+	IN	reduce by rule 48
+	END	reduce by rule 48
+	DATATYPE	reduce by rule 48
+	TYPE	reduce by rule 48
+	THEN	reduce by rule 48
+	ELSE	reduce by rule 48
+	RPAREN	reduce by rule 48
+	RBRACKET	reduce by rule 48
+	RBRACE	reduce by rule 48
+	COMMA	reduce by rule 48
+	CONS	reduce by rule 48
+	EQ	reduce by rule 48
+	NEQ	reduce by rule 48
+	LESS_EQ	reduce by rule 48
+	LESS_OP	reduce by rule 48
+	GREATER_EQ	reduce by rule 48
+	GREATER_OP	reduce by rule 48
+	PLUS	reduce by rule 48
+	MINUS	reduce by rule 48
+	STAR	reduce by rule 48
+	SLASH	reduce by rule 48
+	DOT	reduce by rule 48
+	AT	reduce by rule 48
+
+
+	.	error
+
+
+state 102:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr SLASH expr .  (reduce by rule 47)
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 47
+	VAL	reduce by rule 47
+	FUNC	reduce by rule 47
+	IN	reduce by rule 47
+	END	reduce by rule 47
+	DATATYPE	reduce by rule 47
+	TYPE	reduce by rule 47
+	THEN	reduce by rule 47
+	ELSE	reduce by rule 47
+	RPAREN	reduce by rule 47
+	RBRACKET	reduce by rule 47
+	RBRACE	reduce by rule 47
+	COMMA	reduce by rule 47
+	CONS	reduce by rule 47
+	EQ	reduce by rule 47
+	NEQ	reduce by rule 47
+	LESS_EQ	reduce by rule 47
+	LESS_OP	reduce by rule 47
+	GREATER_EQ	reduce by rule 47
+	GREATER_OP	reduce by rule 47
+	PLUS	reduce by rule 47
+	MINUS	reduce by rule 47
+	STAR	reduce by rule 47
+	SLASH	reduce by rule 47
+	DOT	shift 74
+	AT	reduce by rule 47
+
+
+	.	error
+
+
+state 103:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr STAR expr .  (reduce by rule 46)
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 46
+	VAL	reduce by rule 46
+	FUNC	reduce by rule 46
+	IN	reduce by rule 46
+	END	reduce by rule 46
+	DATATYPE	reduce by rule 46
+	TYPE	reduce by rule 46
+	THEN	reduce by rule 46
+	ELSE	reduce by rule 46
+	RPAREN	reduce by rule 46
+	RBRACKET	reduce by rule 46
+	RBRACE	reduce by rule 46
+	COMMA	reduce by rule 46
+	CONS	reduce by rule 46
+	EQ	reduce by rule 46
+	NEQ	reduce by rule 46
+	LESS_EQ	reduce by rule 46
+	LESS_OP	reduce by rule 46
+	GREATER_EQ	reduce by rule 46
+	GREATER_OP	reduce by rule 46
+	PLUS	reduce by rule 46
+	MINUS	reduce by rule 46
+	STAR	reduce by rule 46
+	SLASH	reduce by rule 46
+	DOT	shift 74
+	AT	reduce by rule 46
+
+
+	.	error
+
+
+state 104:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr MINUS expr .  (reduce by rule 45)
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 45
+	VAL	reduce by rule 45
+	FUNC	reduce by rule 45
+	IN	reduce by rule 45
+	END	reduce by rule 45
+	DATATYPE	reduce by rule 45
+	TYPE	reduce by rule 45
+	THEN	reduce by rule 45
+	ELSE	reduce by rule 45
+	RPAREN	reduce by rule 45
+	RBRACKET	reduce by rule 45
+	RBRACE	reduce by rule 45
+	COMMA	reduce by rule 45
+	CONS	reduce by rule 45
+	EQ	reduce by rule 45
+	NEQ	reduce by rule 45
+	LESS_EQ	reduce by rule 45
+	LESS_OP	reduce by rule 45
+	GREATER_EQ	reduce by rule 45
+	GREATER_OP	reduce by rule 45
+	PLUS	reduce by rule 45
+	MINUS	reduce by rule 45
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	reduce by rule 45
+
+
+	.	error
+
+
+state 105:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr PLUS expr .  (reduce by rule 44)
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 44
+	VAL	reduce by rule 44
+	FUNC	reduce by rule 44
+	IN	reduce by rule 44
+	END	reduce by rule 44
+	DATATYPE	reduce by rule 44
+	TYPE	reduce by rule 44
+	THEN	reduce by rule 44
+	ELSE	reduce by rule 44
+	RPAREN	reduce by rule 44
+	RBRACKET	reduce by rule 44
+	RBRACE	reduce by rule 44
+	COMMA	reduce by rule 44
+	CONS	reduce by rule 44
+	EQ	reduce by rule 44
+	NEQ	reduce by rule 44
+	LESS_EQ	reduce by rule 44
+	LESS_OP	reduce by rule 44
+	GREATER_EQ	reduce by rule 44
+	GREATER_OP	reduce by rule 44
+	PLUS	reduce by rule 44
+	MINUS	reduce by rule 44
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	reduce by rule 44
+
+
+	.	error
+
+
+state 106:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr GREATER_OP expr .  (reduce by rule 40)
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 40
+	VAL	reduce by rule 40
+	FUNC	reduce by rule 40
+	IN	reduce by rule 40
+	END	reduce by rule 40
+	DATATYPE	reduce by rule 40
+	TYPE	reduce by rule 40
+	THEN	reduce by rule 40
+	ELSE	reduce by rule 40
+	RPAREN	reduce by rule 40
+	RBRACKET	reduce by rule 40
+	RBRACE	reduce by rule 40
+	COMMA	reduce by rule 40
+	CONS	shift 85
+	EQ	reduce by rule 40
+	NEQ	reduce by rule 40
+	LESS_EQ	reduce by rule 40
+	LESS_OP	reduce by rule 40
+	GREATER_EQ	reduce by rule 40
+	GREATER_OP	reduce by rule 40
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 107:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr GREATER_EQ expr .  (reduce by rule 41)
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 41
+	VAL	reduce by rule 41
+	FUNC	reduce by rule 41
+	IN	reduce by rule 41
+	END	reduce by rule 41
+	DATATYPE	reduce by rule 41
+	TYPE	reduce by rule 41
+	THEN	reduce by rule 41
+	ELSE	reduce by rule 41
+	RPAREN	reduce by rule 41
+	RBRACKET	reduce by rule 41
+	RBRACE	reduce by rule 41
+	COMMA	reduce by rule 41
+	CONS	shift 85
+	EQ	reduce by rule 41
+	NEQ	reduce by rule 41
+	LESS_EQ	reduce by rule 41
+	LESS_OP	reduce by rule 41
+	GREATER_EQ	reduce by rule 41
+	GREATER_OP	reduce by rule 41
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 108:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr LESS_OP expr .  (reduce by rule 38)
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 38
+	VAL	reduce by rule 38
+	FUNC	reduce by rule 38
+	IN	reduce by rule 38
+	END	reduce by rule 38
+	DATATYPE	reduce by rule 38
+	TYPE	reduce by rule 38
+	THEN	reduce by rule 38
+	ELSE	reduce by rule 38
+	RPAREN	reduce by rule 38
+	RBRACKET	reduce by rule 38
+	RBRACE	reduce by rule 38
+	COMMA	reduce by rule 38
+	CONS	shift 85
+	EQ	reduce by rule 38
+	NEQ	reduce by rule 38
+	LESS_EQ	reduce by rule 38
+	LESS_OP	reduce by rule 38
+	GREATER_EQ	reduce by rule 38
+	GREATER_OP	reduce by rule 38
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 109:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr LESS_EQ expr .  (reduce by rule 39)
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 39
+	VAL	reduce by rule 39
+	FUNC	reduce by rule 39
+	IN	reduce by rule 39
+	END	reduce by rule 39
+	DATATYPE	reduce by rule 39
+	TYPE	reduce by rule 39
+	THEN	reduce by rule 39
+	ELSE	reduce by rule 39
+	RPAREN	reduce by rule 39
+	RBRACKET	reduce by rule 39
+	RBRACE	reduce by rule 39
+	COMMA	reduce by rule 39
+	CONS	shift 85
+	EQ	reduce by rule 39
+	NEQ	reduce by rule 39
+	LESS_EQ	reduce by rule 39
+	LESS_OP	reduce by rule 39
+	GREATER_EQ	reduce by rule 39
+	GREATER_OP	reduce by rule 39
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 110:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr NEQ expr .  (reduce by rule 37)
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 37
+	VAL	reduce by rule 37
+	FUNC	reduce by rule 37
+	IN	reduce by rule 37
+	END	reduce by rule 37
+	DATATYPE	reduce by rule 37
+	TYPE	reduce by rule 37
+	THEN	reduce by rule 37
+	ELSE	reduce by rule 37
+	RPAREN	reduce by rule 37
+	RBRACKET	reduce by rule 37
+	RBRACE	reduce by rule 37
+	COMMA	reduce by rule 37
+	CONS	shift 85
+	EQ	reduce by rule 37
+	NEQ	reduce by rule 37
+	LESS_EQ	reduce by rule 37
+	LESS_OP	reduce by rule 37
+	GREATER_EQ	reduce by rule 37
+	GREATER_OP	reduce by rule 37
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 111:
+
+	expr : expr . EQ expr 
+	expr : expr EQ expr .  (reduce by rule 36)
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 36
+	VAL	reduce by rule 36
+	FUNC	reduce by rule 36
+	IN	reduce by rule 36
+	END	reduce by rule 36
+	DATATYPE	reduce by rule 36
+	TYPE	reduce by rule 36
+	THEN	reduce by rule 36
+	ELSE	reduce by rule 36
+	RPAREN	reduce by rule 36
+	RBRACKET	reduce by rule 36
+	RBRACE	reduce by rule 36
+	COMMA	reduce by rule 36
+	CONS	shift 85
+	EQ	reduce by rule 36
+	NEQ	reduce by rule 36
+	LESS_EQ	reduce by rule 36
+	LESS_OP	reduce by rule 36
+	GREATER_EQ	reduce by rule 36
+	GREATER_OP	reduce by rule 36
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 112:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr CONS expr .  (reduce by rule 42)
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 42
+	VAL	reduce by rule 42
+	FUNC	reduce by rule 42
+	IN	reduce by rule 42
+	END	reduce by rule 42
+	DATATYPE	reduce by rule 42
+	TYPE	reduce by rule 42
+	THEN	reduce by rule 42
+	ELSE	reduce by rule 42
+	RPAREN	reduce by rule 42
+	RBRACKET	reduce by rule 42
+	RBRACE	reduce by rule 42
+	COMMA	reduce by rule 42
+	CONS	shift 85
+	EQ	reduce by rule 42
+	NEQ	reduce by rule 42
+	LESS_EQ	reduce by rule 42
+	LESS_OP	reduce by rule 42
+	GREATER_EQ	reduce by rule 42
+	GREATER_OP	reduce by rule 42
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 113:
+
+	atom : LBRACE record_expr RBRACE .  (reduce by rule 68)
+
+	EOF	reduce by rule 68
+	VAL	reduce by rule 68
+	FUNC	reduce by rule 68
+	IN	reduce by rule 68
+	END	reduce by rule 68
+	DATATYPE	reduce by rule 68
+	TYPE	reduce by rule 68
+	THEN	reduce by rule 68
+	ELSE	reduce by rule 68
+	RPAREN	reduce by rule 68
+	RBRACKET	reduce by rule 68
+	RBRACE	reduce by rule 68
+	COMMA	reduce by rule 68
+	CONS	reduce by rule 68
+	EQ	reduce by rule 68
+	NEQ	reduce by rule 68
+	LESS_EQ	reduce by rule 68
+	LESS_OP	reduce by rule 68
+	GREATER_EQ	reduce by rule 68
+	GREATER_OP	reduce by rule 68
+	PLUS	reduce by rule 68
+	MINUS	reduce by rule 68
+	STAR	reduce by rule 68
+	SLASH	reduce by rule 68
+	DOT	reduce by rule 68
+	AT	reduce by rule 68
+
+
+	.	error
+
+
+state 114:
+
+	record_expr : ID EQ . expr COMMA assign_expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 124
+	atom	goto 48
+
+	.	error
+
+
+state 115:
+
+	atom : LBRACKET list_expr RBRACKET .  (reduce by rule 66)
+
+	EOF	reduce by rule 66
+	VAL	reduce by rule 66
+	FUNC	reduce by rule 66
+	IN	reduce by rule 66
+	END	reduce by rule 66
+	DATATYPE	reduce by rule 66
+	TYPE	reduce by rule 66
+	THEN	reduce by rule 66
+	ELSE	reduce by rule 66
+	RPAREN	reduce by rule 66
+	RBRACKET	reduce by rule 66
+	RBRACE	reduce by rule 66
+	COMMA	reduce by rule 66
+	CONS	reduce by rule 66
+	EQ	reduce by rule 66
+	NEQ	reduce by rule 66
+	LESS_EQ	reduce by rule 66
+	LESS_OP	reduce by rule 66
+	GREATER_EQ	reduce by rule 66
+	GREATER_OP	reduce by rule 66
+	PLUS	reduce by rule 66
+	MINUS	reduce by rule 66
+	STAR	reduce by rule 66
+	SLASH	reduce by rule 66
+	DOT	reduce by rule 66
+	AT	reduce by rule 66
+
+
+	.	error
+
+
+state 116:
+
+	list_expr : expr COMMA . expr_list 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 126
+	expr_list	goto 125
+	atom	goto 48
+
+	.	error
+
+
+state 117:
+
+	atom : LPAREN tuple_expr RPAREN .  (reduce by rule 67)
+
+	EOF	reduce by rule 67
+	VAL	reduce by rule 67
+	FUNC	reduce by rule 67
+	IN	reduce by rule 67
+	END	reduce by rule 67
+	DATATYPE	reduce by rule 67
+	TYPE	reduce by rule 67
+	THEN	reduce by rule 67
+	ELSE	reduce by rule 67
+	RPAREN	reduce by rule 67
+	RBRACKET	reduce by rule 67
+	RBRACE	reduce by rule 67
+	COMMA	reduce by rule 67
+	CONS	reduce by rule 67
+	EQ	reduce by rule 67
+	NEQ	reduce by rule 67
+	LESS_EQ	reduce by rule 67
+	LESS_OP	reduce by rule 67
+	GREATER_EQ	reduce by rule 67
+	GREATER_OP	reduce by rule 67
+	PLUS	reduce by rule 67
+	MINUS	reduce by rule 67
+	STAR	reduce by rule 67
+	SLASH	reduce by rule 67
+	DOT	reduce by rule 67
+	AT	reduce by rule 67
+
+
+	.	error
+
+
+state 118:
+
+	tuple_expr : expr COMMA . expr_list 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 126
+	expr_list	goto 127
+	atom	goto 48
+
+	.	error
+
+
+state 119:
+
+	atom : LPAREN expr RPAREN .  (reduce by rule 69)
+
+	EOF	reduce by rule 69
+	VAL	reduce by rule 69
+	FUNC	reduce by rule 69
+	IN	reduce by rule 69
+	END	reduce by rule 69
+	DATATYPE	reduce by rule 69
+	TYPE	reduce by rule 69
+	THEN	reduce by rule 69
+	ELSE	reduce by rule 69
+	RPAREN	reduce by rule 69
+	RBRACKET	reduce by rule 69
+	RBRACE	reduce by rule 69
+	COMMA	reduce by rule 69
+	CONS	reduce by rule 69
+	EQ	reduce by rule 69
+	NEQ	reduce by rule 69
+	LESS_EQ	reduce by rule 69
+	LESS_OP	reduce by rule 69
+	GREATER_EQ	reduce by rule 69
+	GREATER_OP	reduce by rule 69
+	PLUS	reduce by rule 69
+	MINUS	reduce by rule 69
+	STAR	reduce by rule 69
+	SLASH	reduce by rule 69
+	DOT	reduce by rule 69
+	AT	reduce by rule 69
+
+
+	.	error
+
+
+state 120:
+
+	expr : IF expr THEN . expr ELSE expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 128
+	atom	goto 48
+
+	.	error
+
+
+state 121:
+
+	expr : LET declarations IN . expr END 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 129
+	atom	goto 48
+
+	.	error
+
+
+state 122:
+
+	record_fields : ID COLON type_rule COMMA . record_fields 
+
+	ID	shift 42
+
+	record_fields	goto 130
+
+	.	error
+
+
+state 123:
+
+	params : LPAREN ID COLON type_rule RPAREN params .  (reduce by rule 15)
+
+	COLON	reduce by rule 15
+	EQ	reduce by rule 15
+
+
+	.	error
+
+
+state 124:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	record_expr : ID EQ expr . COMMA assign_expr 
+
+	COMMA	shift 131
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 125:
+
+	list_expr : expr COMMA expr_list .  (reduce by rule 54)
+
+	RBRACKET	reduce by rule 54
+
+
+	.	error
+
+
+state 126:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	expr_list : expr .  (reduce by rule 52)
+	expr_list : expr . COMMA expr_list 
+
+	RPAREN	reduce by rule 52
+	RBRACKET	reduce by rule 52
+	COMMA	shift 132
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 127:
+
+	tuple_expr : expr COMMA expr_list .  (reduce by rule 55)
+
+	RPAREN	reduce by rule 55
+
+
+	.	error
+
+
+state 128:
+
+	expr : IF expr THEN expr . ELSE expr 
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	ELSE	shift 133
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 129:
+
+	expr : LET declarations IN expr . END 
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	END	shift 134
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 130:
+
+	record_fields : ID COLON type_rule COMMA record_fields .  (reduce by rule 23)
+
+	RBRACE	reduce by rule 23
+
+
+	.	error
+
+
+state 131:
+
+	record_expr : ID EQ expr COMMA . assign_expr 
+
+	ID	shift 136
+
+	assign_expr	goto 135
+
+	.	error
+
+
+state 132:
+
+	expr_list : expr COMMA . expr_list 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 126
+	expr_list	goto 137
+	atom	goto 48
+
+	.	error
+
+
+state 133:
+
+	expr : IF expr THEN expr ELSE . expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 138
+	atom	goto 48
+
+	.	error
+
+
+state 134:
+
+	expr : LET declarations IN expr END .  (reduce by rule 34)
+
+	EOF	reduce by rule 34
+	VAL	reduce by rule 34
+	FUNC	reduce by rule 34
+	IN	reduce by rule 34
+	END	reduce by rule 34
+	DATATYPE	reduce by rule 34
+	TYPE	reduce by rule 34
+	THEN	reduce by rule 34
+	ELSE	reduce by rule 34
+	RPAREN	reduce by rule 34
+	RBRACKET	reduce by rule 34
+	RBRACE	reduce by rule 34
+	COMMA	reduce by rule 34
+	CONS	reduce by rule 34
+	EQ	reduce by rule 34
+	NEQ	reduce by rule 34
+	LESS_EQ	reduce by rule 34
+	LESS_OP	reduce by rule 34
+	GREATER_EQ	reduce by rule 34
+	GREATER_OP	reduce by rule 34
+	PLUS	reduce by rule 34
+	MINUS	reduce by rule 34
+	STAR	reduce by rule 34
+	SLASH	reduce by rule 34
+	DOT	reduce by rule 34
+	AT	reduce by rule 34
+
+
+	.	error
+
+
+state 135:
+
+	record_expr : ID EQ expr COMMA assign_expr .  (reduce by rule 58)
+
+	RBRACE	reduce by rule 58
+
+
+	.	error
+
+
+state 136:
+
+	assign_expr : ID . EQ expr 
+	assign_expr : ID . EQ expr COMMA assign_expr 
+
+	EQ	shift 139
+
+
+	.	error
+
+
+state 137:
+
+	expr_list : expr COMMA expr_list .  (reduce by rule 53)
+
+	RPAREN	reduce by rule 53
+	RBRACKET	reduce by rule 53
+
+
+	.	error
+
+
+state 138:
+
+	expr : IF expr THEN expr ELSE expr .  (reduce by rule 35)
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+
+	EOF	reduce by rule 35
+	VAL	reduce by rule 35
+	FUNC	reduce by rule 35
+	IN	reduce by rule 35
+	END	reduce by rule 35
+	DATATYPE	reduce by rule 35
+	TYPE	reduce by rule 35
+	THEN	reduce by rule 35
+	ELSE	reduce by rule 35
+	RPAREN	reduce by rule 35
+	RBRACKET	reduce by rule 35
+	RBRACE	reduce by rule 35
+	COMMA	reduce by rule 35
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 139:
+
+	assign_expr : ID EQ . expr 
+	assign_expr : ID EQ . expr COMMA assign_expr 
+
+	LET	shift 63
+	TRUE	shift 62
+	FALSE	shift 61
+	IF	shift 60
+	LPAREN	shift 59
+	LBRACKET	shift 58
+	LBRACE	shift 57
+	NOT	shift 56
+	PLUS	shift 55
+	MINUS	shift 54
+	ID	shift 53
+	INT_VAL	shift 52
+	REAL_VAL	shift 51
+	STRING_VAL	shift 50
+
+	expr	goto 140
+	atom	goto 48
+
+	.	error
+
+
+state 140:
+
+	expr : expr . EQ expr 
+	expr : expr . NEQ expr 
+	expr : expr . LESS_OP expr 
+	expr : expr . LESS_EQ expr 
+	expr : expr . GREATER_OP expr 
+	expr : expr . GREATER_EQ expr 
+	expr : expr . CONS expr 
+	expr : expr . AT expr 
+	expr : expr . PLUS expr 
+	expr : expr . MINUS expr 
+	expr : expr . STAR expr 
+	expr : expr . SLASH expr 
+	expr : expr . DOT expr 
+	assign_expr : ID EQ expr .  (reduce by rule 56)
+	assign_expr : ID EQ expr . COMMA assign_expr 
+
+	RBRACE	reduce by rule 56
+	COMMA	shift 141
+	CONS	shift 85
+	EQ	shift 84
+	NEQ	shift 83
+	LESS_EQ	shift 82
+	LESS_OP	shift 81
+	GREATER_EQ	shift 80
+	GREATER_OP	shift 79
+	PLUS	shift 78
+	MINUS	shift 77
+	STAR	shift 76
+	SLASH	shift 75
+	DOT	shift 74
+	AT	shift 73
+
+
+	.	error
+
+
+state 141:
+
+	assign_expr : ID EQ expr COMMA . assign_expr 
+
+	ID	shift 136
+
+	assign_expr	goto 142
+
+	.	error
+
+
+state 142:
+
+	assign_expr : ID EQ expr COMMA assign_expr .  (reduce by rule 57)
+
+	RBRACE	reduce by rule 57
+
+
+	.	error
+
+
+state 143:
+
+
+	EOF	accept
+
+
+	.	error
+
+1269 of 1855 action table entries left after compaction
+120 goto table entries

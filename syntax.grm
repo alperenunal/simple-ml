@@ -1,0 +1,212 @@
+open Ast
+
+%%
+
+%name SimpleML
+
+%term EOF
+    | VAL
+    | FUNC
+    | LET
+    | IN
+    | END
+    | DATATYPE
+    | TYPE
+    | OF
+    | UNIT
+    | INT
+    | REAL
+    | BOOL
+    | STRING
+    | LIST
+    | TRUE
+    | FALSE
+    | IF
+    | THEN
+    | ELSE
+    | LPAREN
+    | RPAREN
+    | LBRACKET
+    | RBRACKET
+    | LBRACE
+    | RBRACE
+    | PIPE
+    | COMMA
+    | CONS
+    | COLON
+    | RARROW
+    | UNDERSCORE
+    | EQ
+    | NEQ
+    | NOT
+    | LESS_EQ
+    | LESS_OP
+    | GREATER_EQ
+    | GREATER_OP
+    | PLUS
+    | UNARY_PLUS
+    | MINUS
+    | UNARY_MINUS
+    | STAR
+    | SLASH
+    | DOT
+    | AT
+    | ID of string
+    | INT_VAL of int
+    | REAL_VAL of real
+    | STRING_VAL of string
+
+%nonterm program of program
+       | declaration of decl
+       | declarations of decl list
+       | datatype_rule of (string * typ option) list
+       | datatype_branch of (string * typ option)
+       | type_def of typ option
+       | params of (string * typ) list
+       | type_rule of typ
+       | fun_type of typ
+       | tuple_type of typ
+       | postype of typ
+       | record_fields of (string * typ) list
+       | atype of typ
+       | expr of expr
+       | expr_list of expr list
+       | list_expr of expr list
+       | tuple_expr of expr list
+       | assign_expr of (string * expr) list
+       | record_expr of (string * expr) list
+       | atom of expr
+
+%pos int
+
+%start program
+
+%nonassoc THEN
+%nonassoc ELSE
+%left   EQ NEQ LESS_EQ LESS_OP GREATER_EQ GREATER_OP
+%right  CONS AT
+%left   PLUS MINUS
+%left   STAR SLASH
+%right  NOT UNARY_PLUS UNARY_MINUS
+%left   DOT
+
+%keyword VAL FUNC LET IN END DATATYPE TYPE OF UNIT INT REAL BOOL STRING LIST TRUE FALSE
+%eop EOF
+%noshift EOF
+
+%nodefault
+%pure
+
+%verbose
+
+%%
+
+program
+  :                               ( Program [] )
+  | declarations                  ( Program declarations )
+
+declarations
+  : declaration                   ( [declaration] )
+  | declaration declarations      ( declaration :: declarations )
+
+declaration
+  : VAL ID type_def EQ expr           ( ValDecl (ID, expr, type_def) )
+  | FUNC ID params type_def EQ expr   ( FunDecl (ID, params, expr, type_def) )
+  | TYPE ID EQ type_rule              ( TypeAlias (ID, type_rule) )
+  | DATATYPE ID EQ datatype_rule      ( DataType (ID, datatype_rule) )
+
+datatype_rule
+  : datatype_branch                     ( [datatype_branch] )
+  | datatype_branch PIPE datatype_rule  ( datatype_branch :: datatype_rule )
+
+datatype_branch
+  : ID                                ( (ID, NONE) )
+  | ID OF type_rule                   ( (ID, SOME type_rule) )
+
+type_def
+  :                               ( NONE )
+  | COLON type_rule               ( SOME type_rule )
+
+params
+  :                                         ( [] )
+  | LPAREN ID COLON type_rule RPAREN params ( (ID, type_rule) :: params )
+
+type_rule
+  : fun_type                      ( fun_type )
+
+fun_type
+  : tuple_type                    ( tuple_type )
+  | tuple_type RARROW fun_type    ( FuncTy (tuple_type, fun_type) )
+
+tuple_type
+  : postype                       ( postype )
+  | postype STAR tuple_type       ( TupleTy (postype :: [tuple_type]) )
+
+postype
+  : atype                         ( atype )
+  | atype LIST                    ( ListTy atype )
+
+record_fields
+  : ID COLON type_rule COMMA record_fields  ( (ID, type_rule) :: record_fields )
+  | ID COLON type_rule                      ( [(ID, type_rule)] )
+
+atype
+  : UNIT                          ( UnitTy )
+  | INT                           ( IntTy )
+  | REAL                          ( RealTy )
+  | BOOL                          ( BoolTy )
+  | STRING                        ( StringTy )
+  | LBRACE record_fields RBRACE   ( RecordTy record_fields )
+  | LPAREN type_rule RPAREN       ( type_rule )
+  | ID                            ( VarTy ID )
+
+expr
+  : atom                          ( atom )
+  | LET declarations IN expr END  ( Let (declarations, expr) )
+  | IF expr THEN expr ELSE expr   ( If (expr1, expr2, expr3) )
+  | expr EQ expr                  ( BinaryExpr (Equal, expr1, expr2) )
+  | expr NEQ expr                 ( BinaryExpr (NotEq, expr1, expr2) )
+  | expr LESS_OP expr             ( BinaryExpr (Less, expr1, expr2) )
+  | expr LESS_EQ expr             ( BinaryExpr (LessEq, expr1, expr2) )
+  | expr GREATER_OP expr          ( BinaryExpr (Greater, expr1, expr2) )
+  | expr GREATER_EQ expr          ( BinaryExpr (GreaterEq, expr1, expr2) )
+  | expr CONS expr                ( BinaryExpr (Cons, expr1, expr2) )
+  | expr AT expr                  ( BinaryExpr (Concat, expr1, expr2) )
+  | expr PLUS expr                ( BinaryExpr (Add, expr1, expr2) )
+  | expr MINUS expr               ( BinaryExpr (Subtract, expr1, expr2) )
+  | expr STAR expr                ( BinaryExpr (Multiply, expr1, expr2) )
+  | expr SLASH expr               ( BinaryExpr (Divide, expr1, expr2) )
+  | expr DOT expr                 ( BinaryExpr (Apply, expr1, expr2) )
+  | PLUS expr  %prec UNARY_PLUS   ( UnaryExpr (Plus, expr) )
+  | MINUS expr %prec UNARY_PLUS   ( UnaryExpr (Minus, expr) )
+  | NOT expr                      ( UnaryExpr (Not, expr) )
+
+expr_list
+  : expr                          ( [expr] )
+  | expr COMMA expr_list          ( expr :: expr_list )
+
+list_expr
+  : expr COMMA expr_list          ( expr :: expr_list )
+
+tuple_expr
+  : expr COMMA expr_list          ( expr :: expr_list )
+
+assign_expr
+  : ID EQ expr                    ( [(ID, expr)] )
+  | ID EQ expr COMMA assign_expr  ( (ID, expr) :: assign_expr )
+
+record_expr
+  : ID EQ expr COMMA assign_expr  ( (ID, expr) :: assign_expr )
+
+atom
+  : ID                            ( Var ID )
+  | INT_VAL                       ( Int INT_VAL )
+  | REAL_VAL                      ( Real REAL_VAL )
+  | TRUE                          ( Bool true )
+  | FALSE                         ( Bool false )
+  | STRING_VAL                    ( Str STRING_VAL )
+  | LPAREN RPAREN                 ( Unit )
+  | LBRACKET list_expr RBRACKET   ( List list_expr )
+  | LPAREN tuple_expr RPAREN      ( Tuple tuple_expr )
+  | LBRACE record_expr RBRACE     ( Record record_expr )
+  | LPAREN expr RPAREN            ( expr )

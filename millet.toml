@@ -1,0 +1,7 @@
+version = 1
+
+[workspace]
+root = "simple-ml.mlb"
+
+[workspace.path-vars]
+SML_LIB = { value = "/usr/local/lib/mlton/sml" }

@@ -1,0 +1,28 @@
+(* Standard ML Basis library *)
+$(SML_LIB)/basis/basis.mlb
+$(SML_LIB)/basis/mlton.mlb
+
+(* SML-NJ Util library *)
+$(SML_LIB)/smlnj-lib/Util/smlnj-lib.mlb
+
+(* mlyacc library *)
+$(SML_LIB)/mlyacc-lib/mlyacc-lib.mlb
+
+ast.sml
+
+(* mlyacc mllex files *)
+syntax.grm.sig
+syntax.grm.sml
+lexer.lex.sml
+
+ann "milletDiagnosticsIgnore true" in
+  syntax.grm.sig
+  syntax.grm.sml
+  lexer.lex.sml
+end
+
+parser.sml
+typing.sml
+interpreter.sml
+
+main.sml
