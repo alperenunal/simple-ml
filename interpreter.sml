@@ -13,6 +13,7 @@ struct
   | List of value list
   | Tuple of value list
   | Record of (string * value) list
+  | Constructor of string * value option
   | Func of {params: string list, body: Ast.expr, env: context}
 
   and context =
@@ -34,6 +35,8 @@ struct
         String.concatWith ", "
           (List.map (fn (name, value) => name ^ " : " ^ valueToString value)
              pairs) ^ " }"
+    | valueToString (Constructor (name, SOME value)) = name ^ "(" ^ valueToString value ^ ")"
+    | valueToString (Constructor (name, NONE)) = name
     | valueToString (Func _) = "<func>"
 
   fun isValuesEqual (Int n1, Int n2) = n1 = n2
@@ -63,6 +66,10 @@ struct
         in
           List.all compare vals1
         end
+    | isValuesEqual (Constructor (_, NONE), (Constructor (_, SOME _))) = false
+    | isValuesEqual (Constructor (_, SOME _), (Constructor (_, NONE))) = false
+    | isValuesEqual (Constructor (n1, NONE), (Constructor (n2, NONE))) = n1 = n2
+    | isValuesEqual (Constructor (n1, SOME v1), (Constructor (n2, SOME v2))) = n1 = n2 andalso isValuesEqual (v1, v2)
     | isValuesEqual _ = raise NotComparable
 
   fun mkContext parent =
@@ -92,21 +99,6 @@ struct
     let val () = HashTable.insert (#bindings ctx) (name, value)
     in value
     end
-
-  fun getZeroValue Typing.Unit = Unit
-    | getZeroValue Typing.Int = Int 0
-    | getZeroValue Typing.Real = Real 0.0
-    | getZeroValue Typing.Bool = Bool false
-    | getZeroValue Typing.Str = Str ""
-    | getZeroValue (Typing.List _) = List []
-    | getZeroValue (Typing.Tuple tys) =
-        Tuple (List.map getZeroValue tys)
-    | getZeroValue (Typing.Record pairs) =
-        Record (List.map (fn (name, ty) => (name, getZeroValue ty)) pairs)
-    | getZeroValue (Typing.Func _) =
-        Func {params = [], body = Ast.Unit, env = mkContext NONE}
-    | getZeroValue _ =
-        raise (Fail "not implemented")
 
   fun evalExpr _ Ast.Unit = Unit
     | evalExpr _ (Ast.Int n) = Int n
@@ -159,6 +151,24 @@ struct
         in
           Bool (not (isValuesEqual (val1, val2)))
         end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.OrElse, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+        in
+          case val1 of
+            Bool false => evalExpr ctx e2
+          | Bool true => Bool true
+          | _ => raise Unreachable
+        end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.AndAlso, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+        in
+          case val1 of
+            Bool false => Bool false
+          | Bool true => evalExpr ctx e2
+          | _ => raise Unreachable
+        end
     | evalExpr ctx (Ast.BinaryExpr (Ast.Less, e1, e2)) =
         let
           val val1 = evalExpr ctx e1
@@ -199,6 +209,24 @@ struct
           | (Real r1, Real r2) => Bool (r1 >= r2)
           | _ => raise Unreachable
         end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.Cons, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+          val val2 = evalExpr ctx e2
+        in
+          case (val1, val2) of
+            (hd, List tl) => List (hd :: tl)
+          | _ => raise Unreachable
+        end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.Concat, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+          val val2 = evalExpr ctx e2
+        in
+          case (val1, val2) of
+            (List v1, List v2) => List (v1 @ v2)
+          | _ => raise Unreachable
+        end
     | evalExpr ctx (Ast.BinaryExpr (Ast.Add, e1, e2)) =
         let
           val val1 = evalExpr ctx e1
@@ -207,7 +235,6 @@ struct
           case (val1, val2) of
             (Int n1, Int n2) => Int (n1 + n2)
           | (Real r1, Real r2) => Real (r1 + r2)
-          | (Str s1, Str s2) => Str (s1 ^ s2)
           | _ => raise Unreachable
         end
     | evalExpr ctx (Ast.BinaryExpr (Ast.Subtract, e1, e2)) =
@@ -218,6 +245,15 @@ struct
           case (val1, val2) of
             (Int n1, Int n2) => Int (n1 - n2)
           | (Real r1, Real r2) => Real (r1 - r2)
+          | _ => raise Unreachable
+        end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.StrConcat, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+          val val2 = evalExpr ctx e2
+        in
+          case (val1, val2) of
+            (Str s1, Str s2) => Str (s1 ^ s2)
           | _ => raise Unreachable
         end
     | evalExpr ctx (Ast.BinaryExpr (Ast.Multiply, e1, e2)) =
@@ -236,8 +272,25 @@ struct
           val val2 = evalExpr ctx e2
         in
           case (val1, val2) of
-            (Int v1, Int v2) => Int (v1 div v2)
-          | (Real r1, Real r2) => Real (r1 / r2)
+            (Real r1, Real r2) => Real (r1 / r2)
+          | _ => raise Unreachable
+        end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.IntDiv, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+          val val2 = evalExpr ctx e2
+        in
+          case (val1, val2) of
+            (Int n1, Int n2) => Int (n1 div n2)
+          | _ => raise Unreachable
+        end
+    | evalExpr ctx (Ast.BinaryExpr (Ast.Modulo, e1, e2)) =
+        let
+          val val1 = evalExpr ctx e1
+          val val2 = evalExpr ctx e2
+        in
+          case (val1, val2) of
+            (Int n1, Int n2) => Int (n1 mod n2)
           | _ => raise Unreachable
         end
     | evalExpr ctx (Ast.BinaryExpr (Ast.Apply, e1, e2)) =
@@ -245,18 +298,7 @@ struct
           val lhsVal = evalExpr ctx e1
         in
           case lhsVal of
-            Func {params = [], body, env} =>
-              evalExpr (mkContext (SOME env)) body
-          | Func {params = p :: ps, body, env} =>
-              let
-                val rhsVal = evalExpr ctx e2
-                val newEnv = mkContext (SOME env)
-                val _ = addBinding newEnv (p, rhsVal)
-              in
-                if null ps then evalExpr newEnv body
-                else Func {params = ps, body = body, env = newEnv}
-              end
-          | Tuple values =>
+            Tuple values =>
               let val index = Ast.getIntValue e2
               in List.nth (values, index)
               end
@@ -270,24 +312,18 @@ struct
                     raise (Fail ("Field " ^ field ^ " not defined on record"))
                 | SOME v => #2 v
               end
-          | _ => raise Unreachable
-        end
-    | evalExpr ctx (Ast.BinaryExpr (Ast.Cons, e1, e2)) =
-        let
-          val val1 = evalExpr ctx e1
-          val val2 = evalExpr ctx e2
-        in
-          case (val1, val2) of
-            (hd, List tl) => List (hd :: tl)
-          | _ => raise Unreachable
-        end
-    | evalExpr ctx (Ast.BinaryExpr (Ast.Concat, e1, e2)) =
-        let
-          val val1 = evalExpr ctx e1
-          val val2 = evalExpr ctx e2
-        in
-          case (val1, val2) of
-            (List v1, List v2) => List (v1 @ v2)
+          | Func {params = [], body, env} =>
+              evalExpr (mkContext (SOME env)) body
+          | Func {params = p :: ps, body, env} =>
+              let
+                val rhsVal = evalExpr ctx e2
+                val newEnv = mkContext (SOME env)
+                val _ = addBinding newEnv (p, rhsVal)
+              in
+                if null ps then evalExpr newEnv body
+                else Func {params = ps, body = body, env = newEnv}
+              end
+            | Constructor (name, NONE) => Constructor (name, SOME (evalExpr ctx e2))
           | _ => raise Unreachable
         end
     | evalExpr ctx (Ast.UnaryExpr (Ast.Plus, e)) =
@@ -328,16 +364,9 @@ struct
     | evalDecl _ (Ast.TypeAlias _) = Unit
     | evalDecl ctx (Ast.DataType (_, branches)) =
         let
-          fun create (n, NONE) = addBinding ctx (n, Unit)
-            | create (n, SOME _) =
-                let
-                  val env = mkContext (SOME ctx)
-                  val f =
-                    Func {params = ["arg"], body = Ast.Var "arg", env = env}
-                in
-                  addBinding ctx (n, f)
-                end
-          val _ = List.map create branches
+          fun bindConstructor (name, _) =
+            addBinding ctx (name, Constructor (name, NONE))
+          val _ = List.map bindConstructor branches
         in
           Unit
         end

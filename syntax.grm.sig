@@ -6,6 +6,7 @@ val STRING_VAL: (string) *  'a * 'a -> (svalue,'a) token
 val REAL_VAL: (real) *  'a * 'a -> (svalue,'a) token
 val INT_VAL: (int) *  'a * 'a -> (svalue,'a) token
 val ID: (string) *  'a * 'a -> (svalue,'a) token
+val CARAT:  'a * 'a -> (svalue,'a) token
 val AT:  'a * 'a -> (svalue,'a) token
 val DOT:  'a * 'a -> (svalue,'a) token
 val SLASH:  'a * 'a -> (svalue,'a) token
@@ -18,7 +19,6 @@ val GREATER_OP:  'a * 'a -> (svalue,'a) token
 val GREATER_EQ:  'a * 'a -> (svalue,'a) token
 val LESS_OP:  'a * 'a -> (svalue,'a) token
 val LESS_EQ:  'a * 'a -> (svalue,'a) token
-val NOT:  'a * 'a -> (svalue,'a) token
 val NEQ:  'a * 'a -> (svalue,'a) token
 val EQ:  'a * 'a -> (svalue,'a) token
 val UNDERSCORE:  'a * 'a -> (svalue,'a) token
@@ -33,6 +33,11 @@ val RBRACKET:  'a * 'a -> (svalue,'a) token
 val LBRACKET:  'a * 'a -> (svalue,'a) token
 val RPAREN:  'a * 'a -> (svalue,'a) token
 val LPAREN:  'a * 'a -> (svalue,'a) token
+val MOD:  'a * 'a -> (svalue,'a) token
+val DIV:  'a * 'a -> (svalue,'a) token
+val ORELSE:  'a * 'a -> (svalue,'a) token
+val ANDALSO:  'a * 'a -> (svalue,'a) token
+val NOT:  'a * 'a -> (svalue,'a) token
 val ELSE:  'a * 'a -> (svalue,'a) token
 val THEN:  'a * 'a -> (svalue,'a) token
 val IF:  'a * 'a -> (svalue,'a) token

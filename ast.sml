@@ -15,19 +15,24 @@ sig
   datatype unary_expr = Plus | Minus | Not
 
   datatype binary_expr =
-    Add
-  | Subtract
-  | Multiply
-  | Divide
-  | Equal
+    Equal
   | NotEq
+  | OrElse
+  | AndAlso
   | Less
   | LessEq
   | Greater
   | GreaterEq
-  | Apply
   | Cons
   | Concat
+  | Add
+  | Subtract
+  | StrConcat
+  | Multiply
+  | Divide
+  | IntDiv
+  | Modulo
+  | Apply
 
   datatype expr =
     Unit
@@ -38,6 +43,7 @@ sig
   | List of expr list
   | Tuple of expr list
   | Record of (string * expr) list
+  (* | Lambda of typ * expr *)
   | Var of string
   | Let of decl list * expr
   | If of expr * expr * expr
@@ -74,19 +80,24 @@ struct
   datatype unary_expr = Plus | Minus | Not
 
   datatype binary_expr =
-    Add
-  | Subtract
-  | Multiply
-  | Divide
-  | Equal
+    Equal
   | NotEq
+  | OrElse
+  | AndAlso
   | Less
   | LessEq
   | Greater
   | GreaterEq
-  | Apply
   | Cons
   | Concat
+  | Add
+  | Subtract
+  | StrConcat
+  | Multiply
+  | Divide
+  | IntDiv
+  | Modulo
+  | Apply
 
   datatype expr =
     Unit
@@ -97,6 +108,7 @@ struct
   | List of expr list
   | Tuple of expr list
   | Record of (string * expr) list
+  (* | Lambda of typ * expr *)
   | Var of string
   | Let of decl list * expr
   | If of expr * expr * expr
@@ -167,6 +179,10 @@ struct
         "(= " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (BinaryExpr (NotEq, e1, e2)) =
         "(!= " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (OrElse, e1, e2)) =
+        "(orelse " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (AndAlso, e1, e2)) =
+        "(andalso " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (BinaryExpr (Less, e1, e2)) =
         "(< " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (BinaryExpr (LessEq, e1, e2)) =
@@ -175,20 +191,26 @@ struct
         "(> " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (BinaryExpr (GreaterEq, e1, e2)) =
         "(>= " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
-    | exprToString (BinaryExpr (Add, e1, e2)) =
-        "(+ " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
-    | exprToString (BinaryExpr (Subtract, e1, e2)) =
-        "(- " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
-    | exprToString (BinaryExpr (Multiply, e1, e2)) =
-        "(* " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
-    | exprToString (BinaryExpr (Divide, e1, e2)) =
-        "(/ " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
-    | exprToString (BinaryExpr (Apply, e1, e2)) =
-        "(apply " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (BinaryExpr (Cons, e1, e2)) =
         "(cons " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (BinaryExpr (Concat, e1, e2)) =
         "(concat " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (Add, e1, e2)) =
+        "(+ " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (Subtract, e1, e2)) =
+        "(- " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (StrConcat, e1, e2)) =
+        "(^ " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (Multiply, e1, e2)) =
+        "(* " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (Divide, e1, e2)) =
+        "(/ " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (IntDiv, e1, e2)) =
+        "(div " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (Modulo, e1, e2)) =
+        "(mod " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
+    | exprToString (BinaryExpr (Apply, e1, e2)) =
+        "(apply " ^ exprToString e1 ^ " " ^ exprToString e2 ^ ")"
     | exprToString (UnaryExpr (Plus, e)) =
         "(+ " ^ exprToString e ^ ")"
     | exprToString (UnaryExpr (Minus, e)) =

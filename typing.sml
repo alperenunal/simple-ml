@@ -260,6 +260,24 @@ struct
                    ("lhs value type " ^ typeToString ty1
                     ^ " doesn't match with rhs value type " ^ typeToString ty2))
         end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.OrElse, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
+            (Bool, Bool) => Bool
+          | _ => raise (Fail ("operations requires boolean expression but found " ^ typeToString ty1 ^ " " ^ typeToString ty2))
+        end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.AndAlso, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
+            (Bool, Bool) => Bool
+          | _ => raise (Fail ("operations requires boolean expression but found " ^ typeToString ty1 ^ " " ^ typeToString ty2))
+        end
     | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Less, e1, e2)) =
         let
           val ty1 = typeCheckExpr ctx e1
@@ -316,6 +334,46 @@ struct
                    ("lhs value type " ^ typeToString ty1
                     ^ " doesn't match with rhs value type " ^ typeToString ty2))
         end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Cons, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
+            (elem, List listTy) =>
+              if isTypeEqual (elem, listTy) then
+                List listTy
+              else
+                raise
+                  (Fail
+                     ("lhs value type " ^ typeToString elem
+                      ^ "is different from list type " ^ typeToString listTy))
+          | _ =>
+              raise
+                (Fail
+                   ("cons operation requires rhs to be list but received "
+                    ^ typeToString ty2))
+        end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Concat, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
+            (List t1, List t2) =>
+              if isTypeEqual (t1, t2) then
+                List t1
+              else
+                raise
+                  (Fail
+                     ("list types are different " ^ typeToString t1 ^ " and "
+                      ^ typeToString ty2))
+          | _ =>
+              raise
+                (Fail
+                   ("concat operation requires both values to be list but received "
+                    ^ typeToString ty1 ^ " and " ^ typeToString ty2))
+        end
     | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Add, e1, e2)) =
         let
           val ty1 = typeCheckExpr ctx e1
@@ -324,7 +382,6 @@ struct
           case (ty1, ty2) of
             (Int, Int) => Int
           | (Real, Real) => Real
-          | (Str, Str) => Str
           | _ =>
               raise
                 (Fail
@@ -339,6 +396,19 @@ struct
           case (ty1, ty2) of
             (Int, Int) => Int
           | (Real, Real) => Real
+          | _ =>
+              raise
+                (Fail
+                   ("lhs value type " ^ typeToString ty1
+                    ^ " doesn't match with rhs value type " ^ typeToString ty2))
+        end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.StrConcat, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
+            (Str, Str) => Str
           | _ =>
               raise
                 (Fail
@@ -365,8 +435,33 @@ struct
           val ty2 = typeCheckExpr ctx e2
         in
           case (ty1, ty2) of
+            (Real, Real) => Real
+          | _ =>
+              raise
+                (Fail
+                   ("lhs value type " ^ typeToString ty1
+                    ^ " doesn't match with rhs value type " ^ typeToString ty2))
+        end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.IntDiv, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
             (Int, Int) => Int
-          | (Real, Real) => Real
+          | _ =>
+              raise
+                (Fail
+                   ("lhs value type " ^ typeToString ty1
+                    ^ " doesn't match with rhs value type " ^ typeToString ty2))
+        end
+    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Modulo, e1, e2)) =
+        let
+          val ty1 = typeCheckExpr ctx e1
+          val ty2 = typeCheckExpr ctx e2
+        in
+          case (ty1, ty2) of
+            (Int, Int) => Int
           | _ =>
               raise
                 (Fail
@@ -407,46 +502,6 @@ struct
               end
           | _ =>
               raise (Fail "left hand side of the expression is not a function")
-        end
-    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Cons, e1, e2)) =
-        let
-          val ty1 = typeCheckExpr ctx e1
-          val ty2 = typeCheckExpr ctx e2
-        in
-          case (ty1, ty2) of
-            (elem, List listTy) =>
-              if isTypeEqual (elem, listTy) then
-                List listTy
-              else
-                raise
-                  (Fail
-                     ("lhs value type " ^ typeToString elem
-                      ^ "is different from list type " ^ typeToString listTy))
-          | _ =>
-              raise
-                (Fail
-                   ("cons operation requires rhs to be list but received "
-                    ^ typeToString ty2))
-        end
-    | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Concat, e1, e2)) =
-        let
-          val ty1 = typeCheckExpr ctx e1
-          val ty2 = typeCheckExpr ctx e2
-        in
-          case (ty1, ty2) of
-            (List t1, List t2) =>
-              if isTypeEqual (t1, t2) then
-                List t1
-              else
-                raise
-                  (Fail
-                     ("list types are different " ^ typeToString t1 ^ " and "
-                      ^ typeToString ty2))
-          | _ =>
-              raise
-                (Fail
-                   ("concat operation requires both values to be list but received "
-                    ^ typeToString ty1 ^ " and " ^ typeToString ty2))
         end
     | typeCheckExpr ctx (Ast.UnaryExpr (Ast.Plus, e)) =
         let

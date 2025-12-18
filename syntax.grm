@@ -24,6 +24,11 @@ open Ast
     | IF
     | THEN
     | ELSE
+    | NOT
+    | ANDALSO
+    | ORELSE
+    | DIV
+    | MOD
     | LPAREN
     | RPAREN
     | LBRACKET
@@ -38,7 +43,6 @@ open Ast
     | UNDERSCORE
     | EQ
     | NEQ
-    | NOT
     | LESS_EQ
     | LESS_OP
     | GREATER_EQ
@@ -51,6 +55,7 @@ open Ast
     | SLASH
     | DOT
     | AT
+    | CARAT
     | ID of string
     | INT_VAL of int
     | REAL_VAL of real
@@ -83,14 +88,17 @@ open Ast
 
 %nonassoc THEN
 %nonassoc ELSE
-%left   EQ NEQ LESS_EQ LESS_OP GREATER_EQ GREATER_OP
+%left   EQ NEQ
+%left   ORELSE
+%left   ANDALSO
+%left   LESS_EQ LESS_OP GREATER_EQ GREATER_OP
 %right  CONS AT
-%left   PLUS MINUS
-%left   STAR SLASH
+%left   PLUS MINUS CARAT
+%left   STAR SLASH DIV MOD
 %right  NOT UNARY_PLUS UNARY_MINUS
 %left   DOT
 
-%keyword VAL FUNC LET IN END DATATYPE TYPE OF UNIT INT REAL BOOL STRING LIST TRUE FALSE
+%keyword VAL FUNC LET IN END DATATYPE TYPE OF UNIT INT REAL BOOL STRING LIST TRUE FALSE IF THEN ELSE NOT ANDALSO ORELSE DIV MOD
 %eop EOF
 %noshift EOF
 
@@ -166,6 +174,8 @@ expr
   | IF expr THEN expr ELSE expr   ( If (expr1, expr2, expr3) )
   | expr EQ expr                  ( BinaryExpr (Equal, expr1, expr2) )
   | expr NEQ expr                 ( BinaryExpr (NotEq, expr1, expr2) )
+  | expr ORELSE expr              ( BinaryExpr (OrElse, expr1, expr2) )
+  | expr ANDALSO expr             ( BinaryExpr (AndAlso, expr1, expr2) )
   | expr LESS_OP expr             ( BinaryExpr (Less, expr1, expr2) )
   | expr LESS_EQ expr             ( BinaryExpr (LessEq, expr1, expr2) )
   | expr GREATER_OP expr          ( BinaryExpr (Greater, expr1, expr2) )
@@ -174,8 +184,11 @@ expr
   | expr AT expr                  ( BinaryExpr (Concat, expr1, expr2) )
   | expr PLUS expr                ( BinaryExpr (Add, expr1, expr2) )
   | expr MINUS expr               ( BinaryExpr (Subtract, expr1, expr2) )
+  | expr CARAT expr               ( BinaryExpr (StrConcat, expr1, expr2) )
   | expr STAR expr                ( BinaryExpr (Multiply, expr1, expr2) )
   | expr SLASH expr               ( BinaryExpr (Divide, expr1, expr2) )
+  | expr DIV expr                 ( BinaryExpr (IntDiv, expr1, expr2) )
+  | expr MOD expr                 ( BinaryExpr (Modulo, expr1, expr2) )
   | expr DOT expr                 ( BinaryExpr (Apply, expr1, expr2) )
   | PLUS expr  %prec UNARY_PLUS   ( UnaryExpr (Plus, expr) )
   | MINUS expr %prec UNARY_PLUS   ( UnaryExpr (Minus, expr) )
