@@ -1,5 +1,7 @@
 structure Typing:
 sig
+  datatype label = Field of string | Index of int
+
   datatype typ =
     Unit
   | Int
@@ -9,6 +11,7 @@ sig
   | List of typ
   | Tuple of typ list
   | Record of (string * typ) list
+  | RecordSelector of label
   | DataType of string * (string * typ option) list
   | Func of typ * typ
 
@@ -17,6 +20,8 @@ sig
   val typeCheckProgram: Ast.program -> typ list
 end =
 struct
+  datatype label = Field of string | Index of int
+
   datatype typ =
     Unit
   | Int
@@ -26,6 +31,7 @@ struct
   | List of typ
   | Tuple of typ list
   | Record of (string * typ) list
+  | RecordSelector of label
   | DataType of string * (string * typ option) list
   | Func of typ * typ
 
@@ -46,6 +52,9 @@ struct
     | typeToString (DataType (name, _)) = name
     | typeToString (Func (a, b)) =
         typeToString a ^ " -> " ^ typeToString b
+    | typeToString (RecordSelector (Field f)) = "#" ^ f
+    | typeToString (RecordSelector (Index i)) =
+        "#" ^ (Int.toString i)
 
   fun isTypeEqual (Unit, Unit) = true
     | isTypeEqual (Int, Int) = true
@@ -176,6 +185,10 @@ struct
           if allSame then List listTy
           else raise (Fail "all expression's types must be same in the list")
         end
+    | typeCheckExpr ctx (Ast.Sequence exprs) =
+        let val types = List.map (typeCheckExpr ctx) exprs
+        in List.nth (types, length types - 1)
+        end
     | typeCheckExpr ctx (Ast.Tuple exprs) =
         let val types = List.map (typeCheckExpr ctx) exprs
         in Tuple types
@@ -267,7 +280,11 @@ struct
         in
           case (ty1, ty2) of
             (Bool, Bool) => Bool
-          | _ => raise (Fail ("operations requires boolean expression but found " ^ typeToString ty1 ^ " " ^ typeToString ty2))
+          | _ =>
+              raise
+                (Fail
+                   ("operations requires boolean expression but found "
+                    ^ typeToString ty1 ^ " " ^ typeToString ty2))
         end
     | typeCheckExpr ctx (Ast.BinaryExpr (Ast.AndAlso, e1, e2)) =
         let
@@ -276,7 +293,11 @@ struct
         in
           case (ty1, ty2) of
             (Bool, Bool) => Bool
-          | _ => raise (Fail ("operations requires boolean expression but found " ^ typeToString ty1 ^ " " ^ typeToString ty2))
+          | _ =>
+              raise
+                (Fail
+                   ("operations requires boolean expression but found "
+                    ^ typeToString ty1 ^ " " ^ typeToString ty2))
         end
     | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Less, e1, e2)) =
         let
@@ -471,35 +492,23 @@ struct
     | typeCheckExpr ctx (Ast.BinaryExpr (Ast.Apply, e1, e2)) =
         let
           val lhsType = typeCheckExpr ctx e1
+          val () = print (typeToString lhsType ^ "\n")
+          val rhsType = typeCheckExpr ctx e2
+          val () = print (typeToString rhsType ^ "\n")
         in
-          case lhsType of
-            Func (a, b) =>
-              let
-                val rhsType = typeCheckExpr ctx e2
-              in
-                if isTypeEqual (a, rhsType) then
-                  b
-                else
-                  raise
-                    (Fail
-                       ("argument type " ^ typeToString a
-                        ^ " doesn't match with given argument type "
-                        ^ typeToString rhsType))
-              end
-          | Tuple types =>
-              let val index = Ast.getIntValue e2
-              in List.nth (types, index)
-              end
-          | Record pairs =>
-              let
-                val field = Ast.getVarValue e2
-                val ty = List.find (fn (name, _) => name = field) pairs
-              in
-                case ty of
-                  NONE =>
-                    raise (Fail ("Field " ^ field ^ " not defined on record"))
-                | SOME t => #2 t
-              end
+          case (lhsType, rhsType) of
+            (Func (a, b), _) =>
+              if isTypeEqual (a, rhsType) then
+                b
+              else
+                raise
+                  (Fail
+                     ("argument type " ^ typeToString a
+                      ^ " doesn't match with given argument type "
+                      ^ typeToString rhsType))
+          | (RecordSelector (Field f), Record fields) =>
+              #2 (valOf (List.find (fn (field, _) => field = f) fields))
+          | (RecordSelector (Index i), Tuple fields) => List.nth (fields, i - 1)
           | _ =>
               raise (Fail "left hand side of the expression is not a function")
         end
@@ -540,6 +549,23 @@ struct
                 (Fail
                    ("not operation requires boolean but received "
                     ^ typeToString ty))
+        end
+    | typeCheckExpr _ (Ast.RecordSelector (Ast.Field f)) =
+        RecordSelector (Field f)
+    | typeCheckExpr _ (Ast.RecordSelector (Ast.Index i)) =
+        RecordSelector (Index i)
+    | typeCheckExpr ctx (Ast.TypeAnnotation (e, t)) =
+        let
+          val exprTy = typeCheckExpr ctx e
+          val tyTy = astTyToType ctx t
+        in
+          if isTypeEqual (exprTy, tyTy) then
+            exprTy
+          else
+            raise
+              (Fail
+                 ("lhs value type " ^ typeToString exprTy
+                  ^ " doesn't match with rhs value type " ^ typeToString tyTy))
         end
 
   and typeCheckDecl ctx (Ast.ValDecl (name, expr, ty)) =

@@ -34,6 +34,8 @@ sig
   | Modulo
   | Apply
 
+  datatype label = Field of string | Index of int
+
   datatype expr =
     Unit
   | Int of int
@@ -41,6 +43,7 @@ sig
   | Bool of bool
   | Str of string
   | List of expr list
+  | Sequence of expr list
   | Tuple of expr list
   | Record of (string * expr) list
   (* | Lambda of typ * expr *)
@@ -49,6 +52,8 @@ sig
   | If of expr * expr * expr
   | BinaryExpr of binary_expr * expr * expr
   | UnaryExpr of unary_expr * expr
+  | RecordSelector of label
+  | TypeAnnotation of expr * typ
 
   and decl =
     ValDecl of string * expr * (typ option)
@@ -76,6 +81,8 @@ struct
   | RecordTy of (string * typ) list
   | FuncTy of typ * typ
   | VarTy of string
+
+  datatype label = Field of string | Index of int
 
   datatype unary_expr = Plus | Minus | Not
 
@@ -106,6 +113,7 @@ struct
   | Bool of bool
   | Str of string
   | List of expr list
+  | Sequence of expr list
   | Tuple of expr list
   | Record of (string * expr) list
   (* | Lambda of typ * expr *)
@@ -114,6 +122,8 @@ struct
   | If of expr * expr * expr
   | BinaryExpr of binary_expr * expr * expr
   | UnaryExpr of unary_expr * expr
+  | RecordSelector of label
+  | TypeAnnotation of expr * typ
 
   and decl =
     ValDecl of string * expr * (typ option)
@@ -160,6 +170,8 @@ struct
     | exprToString (Str s) = s
     | exprToString (List exprs) =
         "[" ^ String.concatWith ", " (List.map exprToString exprs) ^ "]"
+    | exprToString (Sequence exprs) =
+        "[" ^ String.concatWith "; " (List.map exprToString exprs) ^ "]"
     | exprToString (Tuple exprs) =
         "(" ^ String.concatWith ", " (List.map exprToString exprs) ^ ")"
     | exprToString (Record pairs) =
@@ -217,6 +229,9 @@ struct
         "(- " ^ exprToString e ^ ")"
     | exprToString (UnaryExpr (Not, e)) =
         "(! " ^ exprToString e ^ ")"
+    | exprToString (RecordSelector (Field f)) = "#" ^ f
+    | exprToString (RecordSelector (Index i)) = "#" ^ (Int.toString i)
+    | exprToString (TypeAnnotation (e, t)) = exprToString e ^ " : " ^ typeToString t
 
   and declToString (ValDecl (id, v, _)) =
         "val " ^ id ^ " = " ^ (exprToString v)

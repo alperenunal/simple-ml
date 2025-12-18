@@ -36,10 +36,10 @@ val s = [
 \\000"
 ),
  (1, 
-"\003\003\003\003\003\003\003\003\003\122\124\003\003\122\003\003\
+"\003\003\003\003\003\003\003\003\003\124\126\003\003\124\003\003\
 \\003\003\003\003\003\003\003\003\003\003\003\003\003\003\003\003\
-\\122\003\119\003\003\003\003\003\118\117\116\115\114\112\111\110\
-\\106\106\106\106\106\106\106\106\106\106\104\003\101\100\098\003\
+\\124\003\121\120\003\003\003\003\119\118\117\116\115\113\112\111\
+\\107\107\107\107\107\107\107\107\107\107\105\104\101\100\098\003\
 \\097\007\007\007\007\007\007\007\007\007\007\007\007\007\007\007\
 \\007\007\007\007\007\007\007\007\007\007\007\096\003\095\094\093\
 \\003\086\082\007\072\066\059\007\007\055\007\007\049\046\043\036\
@@ -750,65 +750,65 @@ val s = [
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (104, 
+ (105, 
 "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\000\000\000\000\000\000\000\000\000\000\105\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\106\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (106, 
+ (107, 
 "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\108\000\
-\\107\107\107\107\107\107\107\107\107\107\000\000\000\000\000\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\109\000\
+\\108\108\108\108\108\108\108\108\108\108\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (108, 
+ (109, 
 "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\109\109\109\109\109\109\109\109\109\109\000\000\000\000\000\000\
+\\110\110\110\110\110\110\110\110\110\110\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (112, 
+ (113, 
 "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\113\000\
+\\000\000\000\000\000\000\000\000\000\000\000\000\000\000\114\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000"
 ),
- (119, 
-"\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\121\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\120\
-\\120"
+ (121, 
+"\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\123\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\122\
+\\122"
 ),
- (122, 
-"\000\000\000\000\000\000\000\000\000\123\000\000\000\123\000\000\
+ (124, 
+"\000\000\000\000\000\000\000\000\000\125\000\000\000\125\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\\123\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\\125\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
@@ -827,127 +827,129 @@ in Vector.fromList(List.map g
 [{fin = [], trans = 0},
 {fin = [], trans = 1},
 {fin = [], trans = 1},
-{fin = [(N 197)], trans = 0},
-{fin = [(N 134),(N 197)], trans = 0},
-{fin = [(N 136),(N 197)], trans = 0},
-{fin = [(N 132),(N 197)], trans = 0},
-{fin = [(N 182),(N 197)], trans = 7},
-{fin = [(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 9},
-{fin = [(N 182)], trans = 10},
-{fin = [(N 8),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 12},
-{fin = [(N 182)], trans = 13},
-{fin = [(N 182)], trans = 14},
-{fin = [(N 45),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 16},
-{fin = [(N 182)], trans = 17},
-{fin = [(N 182)], trans = 18},
-{fin = [(N 37),(N 182)], trans = 7},
-{fin = [(N 182)], trans = 20},
-{fin = [(N 182)], trans = 21},
-{fin = [(N 76),(N 182)], trans = 7},
-{fin = [(N 182)], trans = 23},
-{fin = [(N 182)], trans = 24},
-{fin = [(N 90),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 26},
-{fin = [(N 182)], trans = 27},
-{fin = [(N 182)], trans = 28},
-{fin = [(N 182)], trans = 29},
-{fin = [(N 182)], trans = 30},
-{fin = [(N 66),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 32},
-{fin = [(N 182)], trans = 33},
-{fin = [(N 182)], trans = 34},
-{fin = [(N 54),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 36},
-{fin = [(N 182)], trans = 37},
-{fin = [(N 182)], trans = 38},
-{fin = [(N 182)], trans = 39},
-{fin = [(N 182)], trans = 40},
-{fin = [(N 114),(N 182)], trans = 7},
-{fin = [(N 40),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 43},
-{fin = [(N 182)], trans = 44},
-{fin = [(N 99),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 46},
-{fin = [(N 182)], trans = 47},
-{fin = [(N 122),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 49},
-{fin = [(N 182)], trans = 50},
-{fin = [(N 182)], trans = 51},
-{fin = [(N 71),(N 182)], trans = 7},
-{fin = [(N 182)], trans = 53},
-{fin = [(N 16),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 55},
-{fin = [(N 19),(N 182)], trans = 56},
-{fin = [(N 49),(N 182)], trans = 7},
-{fin = [(N 85),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 59},
-{fin = [(N 182)], trans = 60},
-{fin = [(N 12),(N 182)], trans = 7},
-{fin = [(N 182)], trans = 62},
-{fin = [(N 182)], trans = 63},
-{fin = [(N 182)], trans = 64},
-{fin = [(N 82),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 66},
-{fin = [(N 182)], trans = 67},
-{fin = [(N 23),(N 182)], trans = 7},
-{fin = [(N 182)], trans = 69},
-{fin = [(N 182)], trans = 70},
-{fin = [(N 95),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 72},
-{fin = [(N 182)], trans = 73},
-{fin = [(N 118),(N 182)], trans = 7},
-{fin = [(N 182)], trans = 75},
-{fin = [(N 182)], trans = 76},
-{fin = [(N 182)], trans = 77},
-{fin = [(N 182)], trans = 78},
-{fin = [(N 182)], trans = 79},
-{fin = [(N 182)], trans = 80},
-{fin = [(N 32),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 82},
-{fin = [(N 182)], trans = 83},
-{fin = [(N 182)], trans = 84},
-{fin = [(N 59),(N 182)], trans = 7},
-{fin = [(N 182),(N 197)], trans = 86},
-{fin = [(N 182)], trans = 87},
-{fin = [(N 182)], trans = 88},
-{fin = [(N 182)], trans = 89},
-{fin = [(N 182)], trans = 90},
-{fin = [(N 182)], trans = 91},
-{fin = [(N 107),(N 182)], trans = 7},
-{fin = [(N 148),(N 197)], trans = 0},
-{fin = [(N 177),(N 197)], trans = 0},
-{fin = [(N 130),(N 197)], trans = 0},
-{fin = [(N 128),(N 197)], trans = 0},
-{fin = [(N 175),(N 197)], trans = 0},
-{fin = [(N 163),(N 197)], trans = 98},
-{fin = [(N 161)], trans = 0},
-{fin = [(N 150),(N 197)], trans = 0},
-{fin = [(N 158),(N 197)], trans = 101},
-{fin = [(N 153)], trans = 0},
-{fin = [(N 156)], trans = 0},
-{fin = [(N 143),(N 197)], trans = 104},
+{fin = [(N 201)], trans = 0},
+{fin = [(N 134),(N 201)], trans = 0},
+{fin = [(N 136),(N 201)], trans = 0},
+{fin = [(N 132),(N 201)], trans = 0},
+{fin = [(N 186),(N 201)], trans = 7},
+{fin = [(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 9},
+{fin = [(N 186)], trans = 10},
+{fin = [(N 8),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 12},
+{fin = [(N 186)], trans = 13},
+{fin = [(N 186)], trans = 14},
+{fin = [(N 45),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 16},
+{fin = [(N 186)], trans = 17},
+{fin = [(N 186)], trans = 18},
+{fin = [(N 37),(N 186)], trans = 7},
+{fin = [(N 186)], trans = 20},
+{fin = [(N 186)], trans = 21},
+{fin = [(N 76),(N 186)], trans = 7},
+{fin = [(N 186)], trans = 23},
+{fin = [(N 186)], trans = 24},
+{fin = [(N 90),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 26},
+{fin = [(N 186)], trans = 27},
+{fin = [(N 186)], trans = 28},
+{fin = [(N 186)], trans = 29},
+{fin = [(N 186)], trans = 30},
+{fin = [(N 66),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 32},
+{fin = [(N 186)], trans = 33},
+{fin = [(N 186)], trans = 34},
+{fin = [(N 54),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 36},
+{fin = [(N 186)], trans = 37},
+{fin = [(N 186)], trans = 38},
+{fin = [(N 186)], trans = 39},
+{fin = [(N 186)], trans = 40},
+{fin = [(N 114),(N 186)], trans = 7},
+{fin = [(N 40),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 43},
+{fin = [(N 186)], trans = 44},
+{fin = [(N 99),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 46},
+{fin = [(N 186)], trans = 47},
+{fin = [(N 122),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 49},
+{fin = [(N 186)], trans = 50},
+{fin = [(N 186)], trans = 51},
+{fin = [(N 71),(N 186)], trans = 7},
+{fin = [(N 186)], trans = 53},
+{fin = [(N 16),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 55},
+{fin = [(N 19),(N 186)], trans = 56},
+{fin = [(N 49),(N 186)], trans = 7},
+{fin = [(N 85),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 59},
+{fin = [(N 186)], trans = 60},
+{fin = [(N 12),(N 186)], trans = 7},
+{fin = [(N 186)], trans = 62},
+{fin = [(N 186)], trans = 63},
+{fin = [(N 186)], trans = 64},
+{fin = [(N 82),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 66},
+{fin = [(N 186)], trans = 67},
+{fin = [(N 23),(N 186)], trans = 7},
+{fin = [(N 186)], trans = 69},
+{fin = [(N 186)], trans = 70},
+{fin = [(N 95),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 72},
+{fin = [(N 186)], trans = 73},
+{fin = [(N 118),(N 186)], trans = 7},
+{fin = [(N 186)], trans = 75},
+{fin = [(N 186)], trans = 76},
+{fin = [(N 186)], trans = 77},
+{fin = [(N 186)], trans = 78},
+{fin = [(N 186)], trans = 79},
+{fin = [(N 186)], trans = 80},
+{fin = [(N 32),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 82},
+{fin = [(N 186)], trans = 83},
+{fin = [(N 186)], trans = 84},
+{fin = [(N 59),(N 186)], trans = 7},
+{fin = [(N 186),(N 201)], trans = 86},
+{fin = [(N 186)], trans = 87},
+{fin = [(N 186)], trans = 88},
+{fin = [(N 186)], trans = 89},
+{fin = [(N 186)], trans = 90},
+{fin = [(N 186)], trans = 91},
+{fin = [(N 107),(N 186)], trans = 7},
+{fin = [(N 152),(N 201)], trans = 0},
+{fin = [(N 181),(N 201)], trans = 0},
+{fin = [(N 130),(N 201)], trans = 0},
+{fin = [(N 128),(N 201)], trans = 0},
+{fin = [(N 179),(N 201)], trans = 0},
+{fin = [(N 167),(N 201)], trans = 98},
+{fin = [(N 165)], trans = 0},
+{fin = [(N 154),(N 201)], trans = 0},
+{fin = [(N 162),(N 201)], trans = 101},
+{fin = [(N 157)], trans = 0},
+{fin = [(N 160)], trans = 0},
+{fin = [(N 145),(N 201)], trans = 0},
+{fin = [(N 143),(N 201)], trans = 105},
 {fin = [(N 141)], trans = 0},
-{fin = [(N 185),(N 197)], trans = 106},
-{fin = [(N 185)], trans = 106},
-{fin = [], trans = 108},
-{fin = [(N 191)], trans = 108},
-{fin = [(N 171),(N 197)], trans = 0},
-{fin = [(N 173),(N 197)], trans = 0},
-{fin = [(N 167),(N 197)], trans = 112},
-{fin = [(N 146)], trans = 0},
-{fin = [(N 138),(N 197)], trans = 0},
-{fin = [(N 165),(N 197)], trans = 0},
-{fin = [(N 169),(N 197)], trans = 0},
-{fin = [(N 126),(N 197)], trans = 0},
-{fin = [(N 124),(N 197)], trans = 0},
-{fin = [(N 197)], trans = 119},
-{fin = [], trans = 119},
-{fin = [(N 195)], trans = 0},
-{fin = [(N 4),(N 197)], trans = 122},
-{fin = [(N 4)], trans = 122},
+{fin = [(N 189),(N 201)], trans = 107},
+{fin = [(N 189)], trans = 107},
+{fin = [], trans = 109},
+{fin = [(N 195)], trans = 109},
+{fin = [(N 175),(N 201)], trans = 0},
+{fin = [(N 177),(N 201)], trans = 0},
+{fin = [(N 171),(N 201)], trans = 113},
+{fin = [(N 148)], trans = 0},
+{fin = [(N 138),(N 201)], trans = 0},
+{fin = [(N 169),(N 201)], trans = 0},
+{fin = [(N 173),(N 201)], trans = 0},
+{fin = [(N 126),(N 201)], trans = 0},
+{fin = [(N 124),(N 201)], trans = 0},
+{fin = [(N 150),(N 201)], trans = 0},
+{fin = [(N 201)], trans = 121},
+{fin = [], trans = 121},
+{fin = [(N 199)], trans = 0},
+{fin = [(N 4),(N 201)], trans = 124},
+{fin = [(N 4)], trans = 124},
 {fin = [(N 1)], trans = 0}])
 end
 structure StartStates =
@@ -991,117 +993,121 @@ let fun continue() = lex() in
 
 			(* Application actions *)
 
-  1 => ((*#line 22.25 "lexer.lex"*)pos := (!pos) + 1; lex()(*#line 994.1 "lexer.lex.sml"*)
+  1 => ((*#line 22.25 "lexer.lex"*)pos := (!pos) + 1; lex()(*#line 996.1 "lexer.lex.sml"*)
 )
-| 107 => ((*#line 45.25 "lexer.lex"*)Tokens.ANDALSO(!pos, !pos)(*#line 996.1 "lexer.lex.sml"*)
+| 107 => ((*#line 45.25 "lexer.lex"*)Tokens.ANDALSO(!pos, !pos)(*#line 998.1 "lexer.lex.sml"*)
 )
-| 114 => ((*#line 46.25 "lexer.lex"*)Tokens.ORELSE(!pos, !pos)(*#line 998.1 "lexer.lex.sml"*)
+| 114 => ((*#line 46.25 "lexer.lex"*)Tokens.ORELSE(!pos, !pos)(*#line 1000.1 "lexer.lex.sml"*)
 )
-| 118 => ((*#line 47.25 "lexer.lex"*)Tokens.DIV(!pos, !pos)(*#line 1000.1 "lexer.lex.sml"*)
+| 118 => ((*#line 47.25 "lexer.lex"*)Tokens.DIV(!pos, !pos)(*#line 1002.1 "lexer.lex.sml"*)
 )
-| 12 => ((*#line 26.25 "lexer.lex"*)Tokens.FUNC(!pos, !pos)(*#line 1002.1 "lexer.lex.sml"*)
+| 12 => ((*#line 26.25 "lexer.lex"*)Tokens.FUNC(!pos, !pos)(*#line 1004.1 "lexer.lex.sml"*)
 )
-| 122 => ((*#line 48.25 "lexer.lex"*)Tokens.MOD(!pos, !pos)(*#line 1004.1 "lexer.lex.sml"*)
+| 122 => ((*#line 48.25 "lexer.lex"*)Tokens.MOD(!pos, !pos)(*#line 1006.1 "lexer.lex.sml"*)
 )
-| 124 => ((*#line 49.25 "lexer.lex"*)Tokens.LPAREN(!pos, !pos)(*#line 1006.1 "lexer.lex.sml"*)
+| 124 => ((*#line 49.25 "lexer.lex"*)Tokens.LPAREN(!pos, !pos)(*#line 1008.1 "lexer.lex.sml"*)
 )
-| 126 => ((*#line 50.25 "lexer.lex"*)Tokens.RPAREN(!pos, !pos)(*#line 1008.1 "lexer.lex.sml"*)
+| 126 => ((*#line 50.25 "lexer.lex"*)Tokens.RPAREN(!pos, !pos)(*#line 1010.1 "lexer.lex.sml"*)
 )
-| 128 => ((*#line 51.25 "lexer.lex"*)Tokens.LBRACKET(!pos, !pos)(*#line 1010.1 "lexer.lex.sml"*)
+| 128 => ((*#line 51.25 "lexer.lex"*)Tokens.LBRACKET(!pos, !pos)(*#line 1012.1 "lexer.lex.sml"*)
 )
-| 130 => ((*#line 52.25 "lexer.lex"*)Tokens.RBRACKET(!pos, !pos)(*#line 1012.1 "lexer.lex.sml"*)
+| 130 => ((*#line 52.25 "lexer.lex"*)Tokens.RBRACKET(!pos, !pos)(*#line 1014.1 "lexer.lex.sml"*)
 )
-| 132 => ((*#line 53.25 "lexer.lex"*)Tokens.LBRACE(!pos, !pos)(*#line 1014.1 "lexer.lex.sml"*)
+| 132 => ((*#line 53.25 "lexer.lex"*)Tokens.LBRACE(!pos, !pos)(*#line 1016.1 "lexer.lex.sml"*)
 )
-| 134 => ((*#line 54.25 "lexer.lex"*)Tokens.RBRACE(!pos, !pos)(*#line 1016.1 "lexer.lex.sml"*)
+| 134 => ((*#line 54.25 "lexer.lex"*)Tokens.RBRACE(!pos, !pos)(*#line 1018.1 "lexer.lex.sml"*)
 )
-| 136 => ((*#line 55.25 "lexer.lex"*)Tokens.PIPE(!pos, !pos)(*#line 1018.1 "lexer.lex.sml"*)
+| 136 => ((*#line 55.25 "lexer.lex"*)Tokens.PIPE(!pos, !pos)(*#line 1020.1 "lexer.lex.sml"*)
 )
-| 138 => ((*#line 56.25 "lexer.lex"*)Tokens.COMMA(!pos, !pos)(*#line 1020.1 "lexer.lex.sml"*)
+| 138 => ((*#line 56.25 "lexer.lex"*)Tokens.COMMA(!pos, !pos)(*#line 1022.1 "lexer.lex.sml"*)
 )
-| 141 => ((*#line 57.25 "lexer.lex"*)Tokens.CONS(!pos, !pos)(*#line 1022.1 "lexer.lex.sml"*)
+| 141 => ((*#line 57.25 "lexer.lex"*)Tokens.CONS(!pos, !pos)(*#line 1024.1 "lexer.lex.sml"*)
 )
-| 143 => ((*#line 58.25 "lexer.lex"*)Tokens.COLON(!pos, !pos)(*#line 1024.1 "lexer.lex.sml"*)
+| 143 => ((*#line 58.25 "lexer.lex"*)Tokens.COLON(!pos, !pos)(*#line 1026.1 "lexer.lex.sml"*)
 )
-| 146 => ((*#line 59.25 "lexer.lex"*)Tokens.RARROW(!pos, !pos)(*#line 1026.1 "lexer.lex.sml"*)
+| 145 => ((*#line 59.25 "lexer.lex"*)Tokens.SEMICOLON(!pos, !pos)(*#line 1028.1 "lexer.lex.sml"*)
 )
-| 148 => ((*#line 60.25 "lexer.lex"*)Tokens.UNDERSCORE(!pos, !pos)(*#line 1028.1 "lexer.lex.sml"*)
+| 148 => ((*#line 60.25 "lexer.lex"*)Tokens.RARROW(!pos, !pos)(*#line 1030.1 "lexer.lex.sml"*)
 )
-| 150 => ((*#line 61.25 "lexer.lex"*)Tokens.EQ(!pos, !pos)(*#line 1030.1 "lexer.lex.sml"*)
+| 150 => ((*#line 61.25 "lexer.lex"*)Tokens.HASHTAG(!pos, !pos)(*#line 1032.1 "lexer.lex.sml"*)
 )
-| 153 => ((*#line 62.25 "lexer.lex"*)Tokens.NEQ(!pos, !pos)(*#line 1032.1 "lexer.lex.sml"*)
+| 152 => ((*#line 62.25 "lexer.lex"*)Tokens.UNDERSCORE(!pos, !pos)(*#line 1034.1 "lexer.lex.sml"*)
 )
-| 156 => ((*#line 63.25 "lexer.lex"*)Tokens.LESS_EQ(!pos, !pos)(*#line 1034.1 "lexer.lex.sml"*)
+| 154 => ((*#line 63.25 "lexer.lex"*)Tokens.EQ(!pos, !pos)(*#line 1036.1 "lexer.lex.sml"*)
 )
-| 158 => ((*#line 64.25 "lexer.lex"*)Tokens.LESS_OP(!pos, !pos)(*#line 1036.1 "lexer.lex.sml"*)
+| 157 => ((*#line 64.25 "lexer.lex"*)Tokens.NEQ(!pos, !pos)(*#line 1038.1 "lexer.lex.sml"*)
 )
-| 16 => ((*#line 27.25 "lexer.lex"*)Tokens.LET(!pos, !pos)(*#line 1038.1 "lexer.lex.sml"*)
+| 16 => ((*#line 27.25 "lexer.lex"*)Tokens.LET(!pos, !pos)(*#line 1040.1 "lexer.lex.sml"*)
 )
-| 161 => ((*#line 65.25 "lexer.lex"*)Tokens.GREATER_EQ(!pos, !pos)(*#line 1040.1 "lexer.lex.sml"*)
+| 160 => ((*#line 65.25 "lexer.lex"*)Tokens.LESS_EQ(!pos, !pos)(*#line 1042.1 "lexer.lex.sml"*)
 )
-| 163 => ((*#line 66.25 "lexer.lex"*)Tokens.GREATER_OP(!pos, !pos)(*#line 1042.1 "lexer.lex.sml"*)
+| 162 => ((*#line 66.25 "lexer.lex"*)Tokens.LESS_OP(!pos, !pos)(*#line 1044.1 "lexer.lex.sml"*)
 )
-| 165 => ((*#line 67.25 "lexer.lex"*)Tokens.PLUS(!pos, !pos)(*#line 1044.1 "lexer.lex.sml"*)
+| 165 => ((*#line 67.25 "lexer.lex"*)Tokens.GREATER_EQ(!pos, !pos)(*#line 1046.1 "lexer.lex.sml"*)
 )
-| 167 => ((*#line 68.25 "lexer.lex"*)Tokens.MINUS(!pos, !pos)(*#line 1046.1 "lexer.lex.sml"*)
+| 167 => ((*#line 68.25 "lexer.lex"*)Tokens.GREATER_OP(!pos, !pos)(*#line 1048.1 "lexer.lex.sml"*)
 )
-| 169 => ((*#line 69.25 "lexer.lex"*)Tokens.STAR(!pos, !pos)(*#line 1048.1 "lexer.lex.sml"*)
+| 169 => ((*#line 69.25 "lexer.lex"*)Tokens.PLUS(!pos, !pos)(*#line 1050.1 "lexer.lex.sml"*)
 )
-| 171 => ((*#line 70.25 "lexer.lex"*)Tokens.SLASH(!pos, !pos)(*#line 1050.1 "lexer.lex.sml"*)
+| 171 => ((*#line 70.25 "lexer.lex"*)Tokens.MINUS(!pos, !pos)(*#line 1052.1 "lexer.lex.sml"*)
 )
-| 173 => ((*#line 71.25 "lexer.lex"*)Tokens.DOT(!pos, !pos)(*#line 1052.1 "lexer.lex.sml"*)
+| 173 => ((*#line 71.25 "lexer.lex"*)Tokens.STAR(!pos, !pos)(*#line 1054.1 "lexer.lex.sml"*)
 )
-| 175 => ((*#line 72.25 "lexer.lex"*)Tokens.AT(!pos, !pos)(*#line 1054.1 "lexer.lex.sml"*)
+| 175 => ((*#line 72.25 "lexer.lex"*)Tokens.SLASH(!pos, !pos)(*#line 1056.1 "lexer.lex.sml"*)
 )
-| 177 => ((*#line 73.25 "lexer.lex"*)Tokens.CARAT(!pos, !pos)(*#line 1056.1 "lexer.lex.sml"*)
+| 177 => ((*#line 73.25 "lexer.lex"*)Tokens.DOT(!pos, !pos)(*#line 1058.1 "lexer.lex.sml"*)
 )
-| 182 => let val yytext=yymktext() in (*#line 75.25 "lexer.lex"*)Tokens.ID (yytext, !pos, !pos)(*#line 1058.1 "lexer.lex.sml"*)
+| 179 => ((*#line 74.25 "lexer.lex"*)Tokens.AT(!pos, !pos)(*#line 1060.1 "lexer.lex.sml"*)
+)
+| 181 => ((*#line 75.25 "lexer.lex"*)Tokens.CARAT(!pos, !pos)(*#line 1062.1 "lexer.lex.sml"*)
+)
+| 186 => let val yytext=yymktext() in (*#line 77.25 "lexer.lex"*)Tokens.ID (yytext, !pos, !pos)(*#line 1064.1 "lexer.lex.sml"*)
  end
-| 185 => let val yytext=yymktext() in (*#line 76.25 "lexer.lex"*)Tokens.INT_VAL ((valOf (Int.fromString yytext), !pos, !pos))(*#line 1060.1 "lexer.lex.sml"*)
+| 189 => let val yytext=yymktext() in (*#line 78.25 "lexer.lex"*)Tokens.INT_VAL ((valOf (Int.fromString yytext), !pos, !pos))(*#line 1066.1 "lexer.lex.sml"*)
  end
-| 19 => ((*#line 28.25 "lexer.lex"*)Tokens.IN(!pos, !pos)(*#line 1062.1 "lexer.lex.sml"*)
+| 19 => ((*#line 28.25 "lexer.lex"*)Tokens.IN(!pos, !pos)(*#line 1068.1 "lexer.lex.sml"*)
 )
-| 191 => let val yytext=yymktext() in (*#line 77.25 "lexer.lex"*)Tokens.REAL_VAL ((valOf (Real.fromString yytext), !pos, !pos))(*#line 1064.1 "lexer.lex.sml"*)
+| 195 => let val yytext=yymktext() in (*#line 79.25 "lexer.lex"*)Tokens.REAL_VAL ((valOf (Real.fromString yytext), !pos, !pos))(*#line 1070.1 "lexer.lex.sml"*)
  end
-| 195 => let val yytext=yymktext() in (*#line 78.25 "lexer.lex"*)Tokens.STRING_VAL (String.substring (yytext, 1, String.size yytext - 2), !pos, !pos)(*#line 1066.1 "lexer.lex.sml"*)
+| 199 => let val yytext=yymktext() in (*#line 80.25 "lexer.lex"*)Tokens.STRING_VAL (String.substring (yytext, 1, String.size yytext - 2), !pos, !pos)(*#line 1072.1 "lexer.lex.sml"*)
  end
-| 197 => let val yytext=yymktext() in (*#line 80.25 "lexer.lex"*)raise Fail ("Illegal character: " ^ yytext)(*#line 1068.1 "lexer.lex.sml"*)
+| 201 => let val yytext=yymktext() in (*#line 82.25 "lexer.lex"*)raise Fail ("Illegal character: " ^ yytext)(*#line 1074.1 "lexer.lex.sml"*)
  end
-| 23 => ((*#line 29.25 "lexer.lex"*)Tokens.END(!pos, !pos)(*#line 1070.1 "lexer.lex.sml"*)
+| 23 => ((*#line 29.25 "lexer.lex"*)Tokens.END(!pos, !pos)(*#line 1076.1 "lexer.lex.sml"*)
 )
-| 32 => ((*#line 30.25 "lexer.lex"*)Tokens.DATATYPE(!pos, !pos)(*#line 1072.1 "lexer.lex.sml"*)
+| 32 => ((*#line 30.25 "lexer.lex"*)Tokens.DATATYPE(!pos, !pos)(*#line 1078.1 "lexer.lex.sml"*)
 )
-| 37 => ((*#line 31.25 "lexer.lex"*)Tokens.TYPE(!pos, !pos)(*#line 1074.1 "lexer.lex.sml"*)
+| 37 => ((*#line 31.25 "lexer.lex"*)Tokens.TYPE(!pos, !pos)(*#line 1080.1 "lexer.lex.sml"*)
 )
-| 4 => ((*#line 23.25 "lexer.lex"*)lex()(*#line 1076.1 "lexer.lex.sml"*)
+| 4 => ((*#line 23.25 "lexer.lex"*)lex()(*#line 1082.1 "lexer.lex.sml"*)
 )
-| 40 => ((*#line 32.25 "lexer.lex"*)Tokens.OF(!pos, !pos)(*#line 1078.1 "lexer.lex.sml"*)
+| 40 => ((*#line 32.25 "lexer.lex"*)Tokens.OF(!pos, !pos)(*#line 1084.1 "lexer.lex.sml"*)
 )
-| 45 => ((*#line 33.25 "lexer.lex"*)Tokens.UNIT(!pos, !pos)(*#line 1080.1 "lexer.lex.sml"*)
+| 45 => ((*#line 33.25 "lexer.lex"*)Tokens.UNIT(!pos, !pos)(*#line 1086.1 "lexer.lex.sml"*)
 )
-| 49 => ((*#line 34.25 "lexer.lex"*)Tokens.INT(!pos, !pos)(*#line 1082.1 "lexer.lex.sml"*)
+| 49 => ((*#line 34.25 "lexer.lex"*)Tokens.INT(!pos, !pos)(*#line 1088.1 "lexer.lex.sml"*)
 )
-| 54 => ((*#line 35.25 "lexer.lex"*)Tokens.REAL(!pos, !pos)(*#line 1084.1 "lexer.lex.sml"*)
+| 54 => ((*#line 35.25 "lexer.lex"*)Tokens.REAL(!pos, !pos)(*#line 1090.1 "lexer.lex.sml"*)
 )
-| 59 => ((*#line 36.25 "lexer.lex"*)Tokens.BOOL(!pos, !pos)(*#line 1086.1 "lexer.lex.sml"*)
+| 59 => ((*#line 36.25 "lexer.lex"*)Tokens.BOOL(!pos, !pos)(*#line 1092.1 "lexer.lex.sml"*)
 )
-| 66 => ((*#line 37.25 "lexer.lex"*)Tokens.STRING(!pos, !pos)(*#line 1088.1 "lexer.lex.sml"*)
+| 66 => ((*#line 37.25 "lexer.lex"*)Tokens.STRING(!pos, !pos)(*#line 1094.1 "lexer.lex.sml"*)
 )
-| 71 => ((*#line 38.25 "lexer.lex"*)Tokens.LIST(!pos, !pos)(*#line 1090.1 "lexer.lex.sml"*)
+| 71 => ((*#line 38.25 "lexer.lex"*)Tokens.LIST(!pos, !pos)(*#line 1096.1 "lexer.lex.sml"*)
 )
-| 76 => ((*#line 39.25 "lexer.lex"*)Tokens.TRUE(!pos, !pos)(*#line 1092.1 "lexer.lex.sml"*)
+| 76 => ((*#line 39.25 "lexer.lex"*)Tokens.TRUE(!pos, !pos)(*#line 1098.1 "lexer.lex.sml"*)
 )
-| 8 => ((*#line 25.25 "lexer.lex"*)Tokens.VAL(!pos, !pos)(*#line 1094.1 "lexer.lex.sml"*)
+| 8 => ((*#line 25.25 "lexer.lex"*)Tokens.VAL(!pos, !pos)(*#line 1100.1 "lexer.lex.sml"*)
 )
-| 82 => ((*#line 40.25 "lexer.lex"*)Tokens.FALSE(!pos, !pos)(*#line 1096.1 "lexer.lex.sml"*)
+| 82 => ((*#line 40.25 "lexer.lex"*)Tokens.FALSE(!pos, !pos)(*#line 1102.1 "lexer.lex.sml"*)
 )
-| 85 => ((*#line 41.25 "lexer.lex"*)Tokens.IF(!pos, !pos)(*#line 1098.1 "lexer.lex.sml"*)
+| 85 => ((*#line 41.25 "lexer.lex"*)Tokens.IF(!pos, !pos)(*#line 1104.1 "lexer.lex.sml"*)
 )
-| 90 => ((*#line 42.25 "lexer.lex"*)Tokens.THEN(!pos, !pos)(*#line 1100.1 "lexer.lex.sml"*)
+| 90 => ((*#line 42.25 "lexer.lex"*)Tokens.THEN(!pos, !pos)(*#line 1106.1 "lexer.lex.sml"*)
 )
-| 95 => ((*#line 43.25 "lexer.lex"*)Tokens.ELSE(!pos, !pos)(*#line 1102.1 "lexer.lex.sml"*)
+| 95 => ((*#line 43.25 "lexer.lex"*)Tokens.ELSE(!pos, !pos)(*#line 1108.1 "lexer.lex.sml"*)
 )
-| 99 => ((*#line 44.25 "lexer.lex"*)Tokens.NOT(!pos, !pos)(*#line 1104.1 "lexer.lex.sml"*)
+| 99 => ((*#line 44.25 "lexer.lex"*)Tokens.NOT(!pos, !pos)(*#line 1110.1 "lexer.lex.sml"*)
 )
 | _ => raise Internal.LexerError
 

@@ -4,6 +4,8 @@ struct
   val Unreachable = Fail "unreachable"
   val NotComparable = Fail "not comparable"
 
+  datatype label = Field of string | Index of int
+
   datatype value =
     Unit
   | Int of int
@@ -13,6 +15,7 @@ struct
   | List of value list
   | Tuple of value list
   | Record of (string * value) list
+  | RecordSelector of label
   | Constructor of string * value option
   | Func of {params: string list, body: Ast.expr, env: context}
 
@@ -35,7 +38,11 @@ struct
         String.concatWith ", "
           (List.map (fn (name, value) => name ^ " : " ^ valueToString value)
              pairs) ^ " }"
-    | valueToString (Constructor (name, SOME value)) = name ^ "(" ^ valueToString value ^ ")"
+    | valueToString (RecordSelector (Field f)) = "#" ^ f
+    | valueToString (RecordSelector (Index i)) =
+        "#" ^ (Int.toString i)
+    | valueToString (Constructor (name, SOME value)) =
+        name ^ "(" ^ valueToString value ^ ")"
     | valueToString (Constructor (name, NONE)) = name
     | valueToString (Func _) = "<func>"
 
@@ -69,7 +76,8 @@ struct
     | isValuesEqual (Constructor (_, NONE), (Constructor (_, SOME _))) = false
     | isValuesEqual (Constructor (_, SOME _), (Constructor (_, NONE))) = false
     | isValuesEqual (Constructor (n1, NONE), (Constructor (n2, NONE))) = n1 = n2
-    | isValuesEqual (Constructor (n1, SOME v1), (Constructor (n2, SOME v2))) = n1 = n2 andalso isValuesEqual (v1, v2)
+    | isValuesEqual (Constructor (n1, SOME v1), (Constructor (n2, SOME v2))) =
+        n1 = n2 andalso isValuesEqual (v1, v2)
     | isValuesEqual _ = raise NotComparable
 
   fun mkContext parent =
@@ -108,6 +116,10 @@ struct
     | evalExpr ctx (Ast.List exprs) =
         let val values = List.map (evalExpr ctx) exprs
         in List values
+        end
+    | evalExpr ctx (Ast.Sequence exprs) =
+        let val values = List.map (evalExpr ctx) exprs
+        in List.nth (values, length values - 1)
         end
     | evalExpr ctx (Ast.Tuple exprs) =
         let val values = List.map (evalExpr ctx) exprs
@@ -298,21 +310,7 @@ struct
           val lhsVal = evalExpr ctx e1
         in
           case lhsVal of
-            Tuple values =>
-              let val index = Ast.getIntValue e2
-              in List.nth (values, index)
-              end
-          | Record pairs =>
-              let
-                val field = Ast.getVarValue e2
-                val value = List.find (fn (name, _) => name = field) pairs
-              in
-                case value of
-                  NONE =>
-                    raise (Fail ("Field " ^ field ^ " not defined on record"))
-                | SOME v => #2 v
-              end
-          | Func {params = [], body, env} =>
+            Func {params = [], body, env} =>
               evalExpr (mkContext (SOME env)) body
           | Func {params = p :: ps, body, env} =>
               let
@@ -323,7 +321,25 @@ struct
                 if null ps then evalExpr newEnv body
                 else Func {params = ps, body = body, env = newEnv}
               end
-            | Constructor (name, NONE) => Constructor (name, SOME (evalExpr ctx e2))
+          | Constructor (name, NONE) =>
+              Constructor (name, SOME (evalExpr ctx e2))
+          | RecordSelector (Field f) =>
+              (case evalExpr ctx e2 of
+                 Record pairs =>
+                   let
+                     val value = List.find (fn (name, _) => name = f) pairs
+                   in
+                     case value of
+                       NONE =>
+                         raise (Fail ("Field " ^ f ^ " not defined on record"))
+                     | SOME v => #2 v
+
+                   end
+               | _ => raise Unreachable)
+          | RecordSelector (Index i) =>
+              (case evalExpr ctx e2 of
+                 Tuple values => List.nth (values, i - 1)
+               | _ => raise Unreachable)
           | _ => raise Unreachable
         end
     | evalExpr ctx (Ast.UnaryExpr (Ast.Plus, e)) =
@@ -352,6 +368,11 @@ struct
             Bool b => Bool (not b)
           | _ => raise Unreachable
         end
+    | evalExpr _ (Ast.RecordSelector (Ast.Field f)) =
+        RecordSelector (Field f)
+    | evalExpr _ (Ast.RecordSelector (Ast.Index i)) =
+        RecordSelector (Index i)
+    | evalExpr ctx (Ast.TypeAnnotation (e, _)) = evalExpr ctx e
 
   and evalDecl ctx (Ast.ValDecl (name, expr, _)) =
         addBinding ctx (name, evalExpr ctx expr)

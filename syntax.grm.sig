@@ -22,7 +22,9 @@ val LESS_EQ:  'a * 'a -> (svalue,'a) token
 val NEQ:  'a * 'a -> (svalue,'a) token
 val EQ:  'a * 'a -> (svalue,'a) token
 val UNDERSCORE:  'a * 'a -> (svalue,'a) token
+val HASHTAG:  'a * 'a -> (svalue,'a) token
 val RARROW:  'a * 'a -> (svalue,'a) token
+val SEMICOLON:  'a * 'a -> (svalue,'a) token
 val COLON:  'a * 'a -> (svalue,'a) token
 val CONS:  'a * 'a -> (svalue,'a) token
 val COMMA:  'a * 'a -> (svalue,'a) token

@@ -39,7 +39,9 @@ open Ast
     | COMMA
     | CONS
     | COLON
+    | SEMICOLON
     | RARROW
+    | HASHTAG
     | UNDERSCORE
     | EQ
     | NEQ
@@ -74,11 +76,13 @@ open Ast
        | postype of typ
        | record_fields of (string * typ) list
        | atype of typ
+       | lab of label
        | expr of expr
        | expr_list of expr list
+       | seq_list of expr list
        | list_expr of expr list
+       | seq_expr of expr list
        | tuple_expr of expr list
-       | assign_expr of (string * expr) list
        | record_expr of (string * expr) list
        | atom of expr
 
@@ -86,6 +90,7 @@ open Ast
 
 %start program
 
+%nonassoc COLON
 %nonassoc THEN
 %nonassoc ELSE
 %left   EQ NEQ
@@ -155,8 +160,8 @@ postype
   | atype LIST                    ( ListTy atype )
 
 record_fields
-  : ID COLON type_rule COMMA record_fields  ( (ID, type_rule) :: record_fields )
-  | ID COLON type_rule                      ( [(ID, type_rule)] )
+  : ID COLON type_rule                      ( [(ID, type_rule)] )
+  | ID COLON type_rule COMMA record_fields  ( (ID, type_rule) :: record_fields )
 
 atype
   : UNIT                          ( UnitTy )
@@ -167,6 +172,10 @@ atype
   | LBRACE record_fields RBRACE   ( RecordTy record_fields )
   | LPAREN type_rule RPAREN       ( type_rule )
   | ID                            ( VarTy ID )
+
+lab
+  : ID                            ( Field ID )
+  | INT_VAL                       ( Index INT_VAL )
 
 expr
   : atom                          ( atom )
@@ -193,23 +202,29 @@ expr
   | PLUS expr  %prec UNARY_PLUS   ( UnaryExpr (Plus, expr) )
   | MINUS expr %prec UNARY_PLUS   ( UnaryExpr (Minus, expr) )
   | NOT expr                      ( UnaryExpr (Not, expr) )
+  | HASHTAG lab                   ( RecordSelector lab )
 
 expr_list
   : expr                          ( [expr] )
   | expr COMMA expr_list          ( expr :: expr_list )
 
+seq_list
+  : expr                          ( [expr] )
+  | expr COMMA seq_list           ( expr :: seq_list )
+
 list_expr
-  : expr COMMA expr_list          ( expr :: expr_list )
+  :                               ( [] )
+  | expr_list                     ( expr_list )
+
+seq_expr
+  : expr SEMICOLON seq_list       ( expr :: seq_list )
 
 tuple_expr
   : expr COMMA expr_list          ( expr :: expr_list )
 
-assign_expr
-  : ID EQ expr                    ( [(ID, expr)] )
-  | ID EQ expr COMMA assign_expr  ( (ID, expr) :: assign_expr )
-
 record_expr
-  : ID EQ expr COMMA assign_expr  ( (ID, expr) :: assign_expr )
+  : ID EQ expr                    ( [( ID, expr )] )
+  | ID EQ expr COMMA record_expr  ( (ID, expr) :: record_expr )
 
 atom
   : ID                            ( Var ID )
@@ -220,6 +235,7 @@ atom
   | STRING_VAL                    ( Str STRING_VAL )
   | LPAREN RPAREN                 ( Unit )
   | LBRACKET list_expr RBRACKET   ( List list_expr )
+  | LBRACKET seq_expr RBRACKET    ( Sequence seq_expr )
   | LPAREN tuple_expr RPAREN      ( Tuple tuple_expr )
   | LBRACE record_expr RBRACE     ( Record record_expr )
   | LPAREN expr RPAREN            ( expr )
